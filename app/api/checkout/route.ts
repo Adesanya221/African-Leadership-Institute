@@ -16,9 +16,15 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { fullName, email, country, cohort, phone, accommodation, notes } = body;
 
-    // Save registration to Supabase
+    // Generate unique AFLI reference ID
     const supabase = getSupabase();
+    const timestamp = Date.now().toString(36).toUpperCase();
+    const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+    const referenceId = `AFLI-2026-${timestamp}-${random}`;
+
+    // Save registration to Supabase
     const { error: dbError } = await supabase.from('registrations').insert({
+      reference_id: referenceId,
       full_name: fullName,
       email,
       country,
@@ -52,6 +58,7 @@ export async function POST(req: NextRequest) {
               email,
               name: fullName,
               custom: {
+                reference_id: referenceId,
                 full_name: fullName,
                 email,
                 country,
