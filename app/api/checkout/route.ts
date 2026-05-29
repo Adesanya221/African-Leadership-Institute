@@ -1,18 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabase } from '@/lib/supabase';
 
-const LEMONSQUEEZY_API = 'https://api.lemonsqueezy.com/v1';
+// ── Lemon Squeezy (commented out – kept for reference) ──────────────────────
+// const LEMONSQUEEZY_API = 'https://api.lemonsqueezy.com/v1';
+// ─────────────────────────────────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
   try {
-    const apiKey = process.env.LEMONSQUEEZY_API_KEY;
-    const storeId = process.env.LEMONSQUEEZY_STORE_ID;
-    const variantId = process.env.LEMONSQUEEZY_VARIANT_ID;
-
-    if (!apiKey || !storeId || !variantId) {
-      throw new Error('Lemon Squeezy environment variables are not configured');
-    }
-
     const body = await req.json();
     const { fullName, email, country, cohort, phone, accommodation, notes } = body;
 
@@ -43,72 +37,38 @@ export async function POST(req: NextRequest) {
 
     const origin = req.nextUrl.origin;
 
-    const response = await fetch(`${LEMONSQUEEZY_API}/checkouts`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/vnd.api+json',
-        'Content-Type': 'application/vnd.api+json',
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        data: {
-          type: 'checkouts',
-          attributes: {
-            checkout_data: {
-              email,
-              name: fullName,
-              custom: {
-                reference_id: referenceId,
-                full_name: fullName,
-                email,
-                country,
-                cohort,
-                phone: phone || '',
-                accommodation,
-                notes: notes || '',
-              },
-            },
-            product_options: {
-              name: 'Tutu Fellows 20th Year Reunion – Registration Deposit',
-              description: `Deposit for ${fullName} | Cohort: ${cohort} | Accommodation: ${accommodation}`,
-              redirect_url: `${origin}/payment/success`,
-            },
-            checkout_options: {
-              embed: false,
-              dark: false,
-              logo: true,
-            },
-            expires_at: null,
-          },
-          relationships: {
-            store: {
-              data: {
-                type: 'stores',
-                id: storeId,
-              },
-            },
-            variant: {
-              data: {
-                type: 'variants',
-                id: variantId,
-              },
-            },
-          },
-        },
-      }),
-    });
+    // ── PayPal redirect (replaces Lemon Squeezy) ─────────────────────────────
+    // The PAYPAL_PAYMENT_URL env var should be your PayPal.Me link or
+    // PayPal Standard button URL.  Example:
+    //   https://www.paypal.com/paypalme/africanleadership/50USD
+    // We append ?reference_id=... so the return page knows who paid.
+    // ------------------------------------------------------------------------
+    const paypalBaseUrl = process.env.PAYPAL_PAYMENT_URL;
 
-    const result = await response.json();
-
-    if (!response.ok) {
-      const errorMsg =
-        result?.errors?.[0]?.detail || 'Failed to create checkout session';
-      throw new Error(errorMsg);
+    if (!paypalBaseUrl) {
+      throw new Error('PAYPAL_PAYMENT_URL environment variable is not configured');
     }
 
-    const checkoutUrl = result.data.attributes.url;
+    const separator = paypalBaseUrl.includes('?') ? '&' : '?';
+    const paypalUrl = `${paypalBaseUrl}${separator}reference_id=${encodeURIComponent(referenceId)}&return=${encodeURIComponent(`${origin}/payment/success?reference_id=${referenceId}`)}`;
 
+    return NextResponse.json({ url: paypalUrl, referenceId });
+    // ────────────────────────────────────────────────────────────────────────
+
+    /* ── Lemon Squeezy checkout (kept for reference) ────────────────────────
+    const apiKey = process.env.LEMONSQUEEZY_API_KEY;
+    const storeId = process.env.LEMONSQUEEZY_STORE_ID;
+    const variantId = process.env.LEMONSQUEEZY_VARIANT_ID;
+
+    if (!apiKey || !storeId || !variantId) {
+      throw new Error('Lemon Squeezy environment variables are not configured');
+    }
+
+    const response = await fetch(`${LEMONSQUEEZY_API}/checkouts`, { ... });
+    const result = await response.json();
+    const checkoutUrl = result.data.attributes.url;
     return NextResponse.json({ url: checkoutUrl });
+    ───────────────────────────────────────────────────────────────────────*/
   } catch (err: unknown) {
     const message =
       err instanceof Error ? err.message : 'An unexpected error occurred';

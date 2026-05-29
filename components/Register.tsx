@@ -347,7 +347,7 @@ export default function Register() {
               onClick={handleSubmit}
               disabled={isSubmitting}
             >
-              {isSubmitting ? '⏳ Redirecting to payment...' : '🔒 Submit & Pay Deposit'}
+              {isSubmitting ? '⏳ Redirecting to PayPal...' : '🔒 Submit & Pay via PayPal'}
             </button>
           </div>
         </div>
