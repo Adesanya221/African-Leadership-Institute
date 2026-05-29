@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-export default function PaymentSuccessPage() {
+function PaymentSuccessInner() {
   const searchParams = useSearchParams();
   const referenceId = searchParams.get('reference_id');
   const [updating, setUpdating] = useState(true);
@@ -134,5 +134,19 @@ export default function PaymentSuccessPage() {
         )}
       </div>
     </section>
+  );
+}
+
+export default function PaymentSuccessPage() {
+  return (
+    <Suspense fallback={
+      <section style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F7F5F6' }}>
+        <div style={{ textAlign: 'center' }}>
+          <p style={{ fontSize: 15, color: '#5C3A50' }}>Loading…</p>
+        </div>
+      </section>
+    }>
+      <PaymentSuccessInner />
+    </Suspense>
   );
 }
