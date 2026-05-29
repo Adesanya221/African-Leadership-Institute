@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getSupabase } from '@/lib/supabase';
 
 const LEMONSQUEEZY_API = 'https://api.lemonsqueezy.com/v1';
 
@@ -14,6 +15,25 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
     const { fullName, email, country, cohort, phone, accommodation, notes } = body;
+
+    // Save registration to Supabase
+    const supabase = getSupabase();
+    const { error: dbError } = await supabase.from('registrations').insert({
+      full_name: fullName,
+      email,
+      country,
+      cohort,
+      phone: phone || null,
+      accommodation,
+      notes: notes || null,
+      payment_status: 'pending',
+      created_at: new Date().toISOString(),
+    });
+
+    if (dbError) {
+      console.error('Supabase insert error:', dbError);
+      // Don't block payment if DB save fails — log it and continue
+    }
 
     const origin = req.nextUrl.origin;
 
