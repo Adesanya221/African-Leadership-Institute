@@ -25,6 +25,9 @@ yarn-error.log*
 # local env files
 .env*.local
 
+# large media files (host on CDN or compress before adding)
+/public/hero-video.mp4
+
 # vercel
 .vercel
 

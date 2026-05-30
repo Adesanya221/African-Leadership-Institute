@@ -46,6 +46,7 @@ export default function Hero() {
           background:
             'radial-gradient(ellipse at 30% 40%, rgba(155,29,110,0.15) 0%, transparent 60%)',
           zIndex: 1,
+          zIndex: 1,
         }}
       />
 
@@ -89,15 +90,7 @@ export default function Hero() {
             &amp; Strategy Retreat
           </span>
         </h1>
-        <p
-          style={{
-            fontSize: 17,
-            color: 'rgba(255,255,255,0.8)',
-            lineHeight: 1.8,
-            marginBottom: 36,
-            maxWidth: 600,
-          }}
-        >
+        <p className="hero-desc" style={{ maxWidth: 600 }}>
           A landmark strategy retreat, the formal launch of the Tutu Fellows
           Alumni Organisation, and five extraordinary days at one of Africa's
           most spectacular natural wonders.

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useBooking, AccommodationOption } from '@/context/BookingContext';
+import AutoScroll from './AutoScroll';
 
 function range(n: number) {
   return Array.from({ length: n }, (_, i) => i + 1);
@@ -446,9 +447,9 @@ export default function Accommodation() {
         </div>
 
         {/* Mobile carousel */}
-        <div className="carousel-scroll">
+        <AutoScroll className="carousel-scroll" speed={0.6}>
           {properties.map((prop) => renderCard(prop, true))}
-        </div>
+        </AutoScroll>
         <p className="scroll-hint">← Swipe to explore →</p>
 
         <div

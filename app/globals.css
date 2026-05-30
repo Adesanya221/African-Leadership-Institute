@@ -11,6 +11,159 @@ body {
   scroll-behavior: smooth;
 }
 
+/* ── Scroll entrance animations ── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes zoomInOut {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-on-scroll-delay-1 { transition-delay: 0.15s; }
+.animate-on-scroll-delay-2 { transition-delay: 0.30s; }
+.animate-on-scroll-delay-3 { transition-delay: 0.45s; }
+
+/* Subtle hover zoom for programme images */
+.programme-row-img img {
+  transition: transform 0.6s ease;
+}
+
+.programme-row-img:hover img {
+  transform: scale(1.08);
+}
+
+/* ── Mobile-only Programme carousel ── */
+.programme-mobile-view {
+  display: none;
+}
+
+.programme-mobile-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  padding-bottom: 16px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.programme-mobile-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.programme-mobile-scroll > .programme-mobile-card {
+  flex-shrink: 0;
+  width: 82vw;
+  max-width: 320px;
+}
+
+.programme-mobile-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(28, 9, 18, 0.08);
+}
+
+.programme-mobile-img {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+}
+
+.programme-mobile-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.programme-mobile-step {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #fff;
+  color: #9B1D6E;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.programme-mobile-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 14px;
+  background: linear-gradient(transparent, rgba(28, 9, 18, 0.7));
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.programme-mobile-body {
+  padding: 16px 18px 20px;
+}
+
+.programme-mobile-body h3 {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #1C0912;
+  margin: 0 0 8px;
+  line-height: 1.35;
+}
+
+.programme-mobile-body p {
+  font-size: 13px;
+  color: #5C3A50;
+  line-height: 1.65;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 nav {
   background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(10px);
@@ -464,6 +617,67 @@ label {
   opacity: 0.7;
 }
 
+/* Utility classes for responsive typography & spacing */
+.section-lead {
+  font-size: 26px;
+  font-weight: 400;
+  font-family: Georgia, serif;
+  color: #1C0912;
+  margin: 12px 0 16px;
+  line-height: 1.35;
+}
+
+.hero-desc {
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.8;
+  margin-bottom: 36px;
+}
+
+.success-card {
+  text-align: center;
+  padding: 60px 40px;
+}
+
+.register-btn {
+  font-size: 15px;
+  padding: 16px 36px;
+}
+
+/* Auto-scroll marquee wrapper */
+.auto-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 14px;
+  padding-bottom: 16px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.auto-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.auto-scroll > * {
+  flex-shrink: 0;
+}
+
+/* Costs mobile horizontal scroll */
+.costs-mobile-2,
+.costs-mobile-3 {
+  display: none;
+}
+
+.costs-scroll-2 > .card {
+  flex: 0 0 85vw;
+  max-width: 360px;
+}
+
+.costs-scroll-3 > .card {
+  flex: 0 0 80vw;
+  max-width: 320px;
+}
+
 /* ===== RESPONSIVE ===== */
 
 /* Large tablets / small desktops */
@@ -629,7 +843,6 @@ label {
   .gallery-bottom {
     display: flex;
     overflow-x: auto;
-    scroll-snap-type: x mandatory;
     gap: 12px;
     padding-bottom: 12px;
     -webkit-overflow-scrolling: touch;
@@ -643,7 +856,6 @@ label {
   .gallery-bottom-item {
     flex: 0 0 200px;
     height: 160px;
-    scroll-snap-align: start;
   }
 
   .footer-inner {
@@ -674,11 +886,68 @@ label {
   }
 
   .costs-timeline {
-    grid-template-columns: 1fr;
+    display: none;
   }
 
   .costs-connector {
     display: none;
+  }
+
+  .costs-timeline {
+    display: none;
+  }
+
+  .costs-connector {
+    display: none;
+  }
+
+  /* Costs mobile carousels */
+  .costs-desktop-2,
+  .costs-desktop-3 {
+    display: none !important;
+  }
+
+  .costs-mobile-2,
+  .costs-mobile-3 {
+    display: flex !important;
+  }
+
+  .section-lead {
+    font-size: 22px;
+    margin: 10px 0 12px;
+    line-height: 1.3;
+  }
+
+  .hero-desc {
+    font-size: 15px;
+    margin-bottom: 24px;
+    line-height: 1.7;
+  }
+
+  .success-card {
+    padding: 40px 24px;
+  }
+
+  .register-btn {
+    font-size: 14px;
+    padding: 14px 28px;
+  }
+
+  /* Mobile nav dropdown as stacked menu */
+  nav.nav-open .nav-links {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+  }
+
+  nav.nav-open .nav-btn {
+    width: 100%;
+    text-align: center;
+    padding: 12px 16px;
+  }
+
+  nav.nav-open .nav-btn.primary {
+    margin-top: 4px;
   }
 }
 
@@ -792,8 +1061,21 @@ label {
     margin-bottom: 32px;
   }
 
+  .programme-row:nth-of-type(2) .programme-row-img {
+    order: 2;
+  }
+
   .programme-row-img {
     height: 180px;
+  }
+
+  /* Show distinct mobile Programme design */
+  .programme-mobile-view {
+    display: block;
+  }
+
+  .programme-desktop-only {
+    display: none !important;
   }
 
   .register-footer {
@@ -803,6 +1085,26 @@ label {
   .register-footer .btn {
     width: 100%;
     justify-content: center;
+  }
+
+  .section-lead {
+    font-size: 20px;
+    margin: 8px 0 10px;
+  }
+
+  .hero-desc {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .success-card {
+    padding: 28px 18px;
+  }
+
+  .register-btn {
+    font-size: 13px;
+    padding: 13px 22px;
+    width: 100%;
   }
 
   .footer-inner {

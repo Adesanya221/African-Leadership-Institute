@@ -105,7 +105,7 @@ export default function Register() {
     return (
       <section id="register" style={{ background: '#F7F5F6' }}>
         <div style={{ maxWidth: 900, margin: '0 auto' }}>
-          <div className="card" style={{ textAlign: 'center', padding: '60px 40px' }}>
+          <div className="card success-card">
             <div
               style={{
                 width: 80,
@@ -342,8 +342,8 @@ export default function Register() {
               </p>
             </div>
             <button
-              className="btn btn-primary"
-              style={{ fontSize: 15, padding: '16px 36px', opacity: isSubmitting ? 0.7 : 1 }}
+              className="btn btn-primary register-btn"
+              style={{ opacity: isSubmitting ? 0.7 : 1 }}
               onClick={handleSubmit}
               disabled={isSubmitting}
             >

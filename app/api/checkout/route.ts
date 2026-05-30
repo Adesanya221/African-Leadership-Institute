@@ -42,10 +42,10 @@ export async function POST(req: NextRequest) {
     // STEP 1: Paste your PayPal link in the Vercel env var PAYPAL_PAYMENT_URL
     //
     // Option A – PayPal Standard Button (BEST – auto-returns after payment)
-    //   https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=...&amount=50&currency_code=USD
+    //   https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=...&amount=150&currency_code=USD
     //
     // Option B – PayPal.Me (SIMPLE – user must manually come back)
-    //   https://www.paypal.com/paypalme/africanleadership/50USD
+    //   https://www.paypal.com/paypalme/africanleadership/150USD
     //   Note: PayPal.Me does NOT support auto-return. Users pay and stay on PayPal.
     //   For auto-return, use Option A (PayPal Standard Button) instead.
     // ------------------------------------------------------------------------
