@@ -89,7 +89,7 @@ function PaymentSuccessInner() {
         <p style={{ fontSize: 15, color: '#5C3A50', lineHeight: 1.7, marginBottom: 24 }}>
           {updating
             ? 'Please wait while we confirm your PayPal payment and secure your place.'
-            : 'Your US$50 deposit has been received. Your place at the Tutu Fellows 20th Year Reunion is now secured. A confirmation email will be sent to you shortly.'}
+            : 'Your US$150 deposit has been received. Your place at the Tutu Fellows 20th Year Reunion is now secured. A confirmation email will be sent to you shortly.'}
         </p>
 
         {referenceId && (

@@ -105,7 +105,7 @@ export default function Register() {
     return (
       <section id="register" style={{ background: '#F7F5F6' }}>
         <div style={{ maxWidth: 900, margin: '0 auto' }}>
-          <div className="card" style={{ textAlign: 'center', padding: '60px 40px' }}>
+          <div className="card success-card">
             <div
               style={{
                 width: 80,
@@ -336,14 +336,14 @@ export default function Register() {
               <p style={{ fontSize: 13, color: '#5C3A50', marginBottom: 4 }}>
                 Deposit payable on submission
               </p>
-              <p style={{ fontSize: 32, fontWeight: 700, color: '#9B1D6E' }}>US$50.00</p>
+              <p style={{ fontSize: 32, fontWeight: 700, color: '#9B1D6E' }}>US$150.00</p>
               <p style={{ fontSize: 12, color: '#5C3A50', marginTop: 4 }}>
                 Deducted from your total. Non-refundable.
               </p>
             </div>
             <button
-              className="btn btn-primary"
-              style={{ fontSize: 15, padding: '16px 36px', opacity: isSubmitting ? 0.7 : 1 }}
+              className="btn btn-primary register-btn"
+              style={{ opacity: isSubmitting ? 0.7 : 1 }}
               onClick={handleSubmit}
               disabled={isSubmitting}
             >

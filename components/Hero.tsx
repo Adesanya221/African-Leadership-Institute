@@ -3,11 +3,37 @@ export default function Hero() {
     <section
       id="hero"
       className="hero-section"
-      style={{
-        background:
-          "linear-gradient(135deg, rgba(45,10,30,0.88) 0%, rgba(155,29,110,0.78) 100%), url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=1600&auto=format&fit=crop&q=80') center/cover no-repeat",
-      }}
+      style={{ position: 'relative', overflow: 'hidden' }}
     >
+      {/* Looping background video */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          zIndex: 0,
+        }}
+      >
+        <source src="/hero-video.mp4" type="video/mp4" />
+      </video>
+
+      {/* Dark overlay */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background:
+            'linear-gradient(135deg, rgba(45,10,30,0.82) 0%, rgba(155,29,110,0.72) 100%)',
+          zIndex: 1,
+        }}
+      />
       <div
         style={{
           position: 'absolute',
@@ -17,9 +43,10 @@ export default function Hero() {
           bottom: 0,
           background:
             'radial-gradient(ellipse at 30% 40%, rgba(155,29,110,0.15) 0%, transparent 60%)',
+          zIndex: 1,
         }}
       />
-      <div className="hero-content">
+      <div className="hero-content" style={{ position: 'relative', zIndex: 2 }}>
         <div
           style={{
             display: 'flex',
@@ -58,15 +85,7 @@ export default function Hero() {
             &amp; Strategy Retreat
           </span>
         </h1>
-        <p
-          style={{
-            fontSize: 17,
-            color: 'rgba(255,255,255,0.8)',
-            lineHeight: 1.8,
-            marginBottom: 36,
-            maxWidth: 600,
-          }}
-        >
+        <p className="hero-desc" style={{ maxWidth: 600 }}>
           A landmark strategy retreat, the formal launch of the Tutu Fellows
           Alumni Organisation, and five extraordinary days at one of Africa's
           most spectacular natural wonders.

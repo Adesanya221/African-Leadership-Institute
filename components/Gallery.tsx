@@ -131,9 +131,9 @@ export default function Gallery() {
               label: 'Safari Suite',
             },
             {
-              src: '/gallery/gallery-7.jpg',
-              alt: 'Victoria Falls Estates',
-              label: 'Luxury Rooms',
+              src: '/rooms/vic-falls-hotel/hotel-1.jpg',
+              alt: 'Vic Falls Hotel Livingstone Room',
+              label: 'Livingstone Room',
             },
           ].map((item) => (
             <div
