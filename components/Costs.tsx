@@ -80,7 +80,7 @@ export default function Costs() {
               </div>
               <div>
                 
-                <h3 style={{ margin: '4px 0 0' }}>Accommodation and Lodge</h3>
+                <h3 style={{ margin: '4px 0 0' }}>Accommodation</h3>
               </div>
             </div>
             

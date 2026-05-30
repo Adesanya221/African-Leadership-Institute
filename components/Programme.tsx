@@ -347,7 +347,7 @@ export default function Programme() {
           </p>
           <p
           style={{
-            fontSize: 13,
+            fontSize: 9,
             color: '#9B1D6E',
             fontWeight: 600,
             marginTop: 16,
