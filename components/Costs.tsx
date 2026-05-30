@@ -253,7 +253,7 @@ export default function Costs() {
                   fontWeight: 600,
                 }}
               >
-                Due 30 June 2026
+                Pay by 30 June 2026
               </span>
             </div>
 
@@ -294,7 +294,7 @@ export default function Costs() {
                   fontWeight: 600,
                 }}
               >
-                Due 31 July 2026
+                Pay by 31 July 2026
               </span>
             </div>
 
@@ -335,7 +335,7 @@ export default function Costs() {
                   fontWeight: 600,
                 }}
               >
-                Due 30 September 2026
+                Pay by 30 September 2026
               </span>
             </div>
           </div>
@@ -379,7 +379,7 @@ export default function Costs() {
                 fontWeight: 600,
               }}
             >
-              Due 30 June 2026
+              Pay by 30 June 2026
             </span>
           </div>
 
@@ -421,7 +421,7 @@ export default function Costs() {
                 fontWeight: 600,
               }}
             >
-              Due 31 July 2026
+              Pay by 31 July 2026
             </span>
           </div>
 
@@ -462,7 +462,7 @@ export default function Costs() {
                 fontWeight: 600,
               }}
             >
-              Due 30 September 2026
+              Pay by 30 September 2026
             </span>
           </div>
         </AutoScroll>

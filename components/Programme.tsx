@@ -356,7 +356,7 @@ export default function Programme() {
             textAlign: 'center',
           }}
         >
-          Kunya Maphisa
+          Kunyalala Maphisa
           <br />
           CEO
           <br />

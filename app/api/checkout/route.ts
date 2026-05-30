@@ -64,10 +64,8 @@ export async function POST(req: NextRequest) {
       const separator = paypalBaseUrl.includes('?') ? '&' : '?';
       paypalUrl = `${paypalBaseUrl}${separator}custom=${encodeURIComponent(referenceId)}&return=${encodeURIComponent(`${origin}/payment/success?reference_id=${referenceId}`)}&cancel_return=${encodeURIComponent(`${origin}/?payment=cancelled`)}`;
     } else {
-      // PayPal.Me or other simple link – just append reference_id as a hint
-      // Users won't auto-return; they must click Back or we rely on webhook/IPN
-      const separator = paypalBaseUrl.includes('?') ? '&' : '?';
-      paypalUrl = `${paypalBaseUrl}${separator}reference_id=${encodeURIComponent(referenceId)}`;
+      // PayPal NCP link — do not append params, PayPal will reject them
+      paypalUrl = paypalBaseUrl;
     }
 
     return NextResponse.json({ url: paypalUrl, referenceId });
