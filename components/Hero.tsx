@@ -5,12 +5,10 @@ export default function Hero() {
       className="hero-section"
       style={{ position: 'relative', overflow: 'hidden' }}
     >
-      {/* Looping background video */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
+      {/* Background image */}
+      <img
+        src="/gallery/gallery-1.jpg"
+        alt="Victoria Falls"
         style={{
           position: 'absolute',
           top: 0,
@@ -20,9 +18,7 @@ export default function Hero() {
           objectFit: 'cover',
           zIndex: 0,
         }}
-      >
-        <source src="/hero-video.mp4" type="video/mp4" />
-      </video>
+      />
 
       {/* Dark overlay */}
       <div
