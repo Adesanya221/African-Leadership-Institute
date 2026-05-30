@@ -46,7 +46,6 @@ export default function Hero() {
           background:
             'radial-gradient(ellipse at 30% 40%, rgba(155,29,110,0.15) 0%, transparent 60%)',
           zIndex: 1,
-          zIndex: 1,
         }}
       />
 
