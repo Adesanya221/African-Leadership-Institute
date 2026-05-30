@@ -43,8 +43,8 @@ export default function Gallery() {
         <div className="gallery-main">
           <div className="gallery-main-img">
             <img
-              src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=900&auto=format&fit=crop"
-              alt="Victoria Falls aerial view"
+              src="/gallery/gallery-1.jpg"
+              alt="Victoria Falls Estates"
               style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
             />
             <div
@@ -58,10 +58,10 @@ export default function Gallery() {
               }}
             >
               <span style={{ color: '#fff', fontSize: 13, fontWeight: 600 }}>
-                Victoria Falls: Mosi-oa-Tunya
+                Victoria Falls Estates
               </span>
               <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: 11, marginTop: 3 }}>
-                One of the Seven Natural Wonders of the World
+                Exclusive private estate accommodation
               </p>
             </div>
           </div>
@@ -69,7 +69,7 @@ export default function Gallery() {
           <div className="gallery-side">
             <div className="gallery-side-img">
               <img
-                src="https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?w=600&auto=format&fit=crop"
+                src="/gallery/gallery-2.png"
                 alt="Victoria Falls Safari Lodge"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               />
@@ -84,14 +84,14 @@ export default function Gallery() {
                 }}
               >
                 <span style={{ color: '#fff', fontSize: 12, fontWeight: 600 }}>
-                  Vic Falls Safari Lodge
+                  Victoria Falls Safari Lodge
                 </span>
               </div>
             </div>
             <div className="gallery-side-img">
               <img
-                src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&auto=format&fit=crop"
-                alt="Luxury lodge room"
+                src="/gallery/gallery-3.jpg"
+                alt="Zambezi Boutique Lodge"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               />
               <div
@@ -105,7 +105,7 @@ export default function Gallery() {
                 }}
               >
                 <span style={{ color: '#fff', fontSize: 12, fontWeight: 600 }}>
-                  Lodge Accommodation
+                  Zambezi Boutique Lodge
                 </span>
               </div>
             </div>
@@ -116,24 +116,24 @@ export default function Gallery() {
         <div className="gallery-bottom">
           {[
             {
-              src: 'https://images.unsplash.com/photo-1504432842672-1a79f78e4084?w=400&auto=format&fit=crop',
-              alt: 'Victoria Falls mist',
-              label: 'The Falls at Sunrise',
+              src: '/gallery/gallery-4.jpg',
+              alt: 'Victoria Falls Estates room',
+              label: 'Estate Living',
             },
             {
-              src: 'https://images.unsplash.com/photo-1609952542840-df54cfddc3dc?w=400&auto=format&fit=crop',
-              alt: 'African wildlife',
-              label: 'Wildlife & Safari',
+              src: '/gallery/gallery-5.jpg',
+              alt: 'Vic Falls Hotel Livingstone Room',
+              label: 'Vic Falls Hotel',
             },
             {
-              src: 'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=400&auto=format&fit=crop',
-              alt: 'Boutique lodge',
-              label: 'Boutique Lodge',
+              src: '/gallery/gallery-6.png',
+              alt: 'Victoria Falls Safari Suite',
+              label: 'Safari Suite',
             },
             {
-              src: 'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=400&auto=format&fit=crop',
-              alt: 'Sundowner evening',
-              label: 'Sundowner Evenings',
+              src: '/gallery/gallery-7.jpg',
+              alt: 'Victoria Falls Estates',
+              label: 'Luxury Rooms',
             },
           ].map((item) => (
             <div

@@ -57,8 +57,8 @@ export default function Programme() {
           </div>
           <div className="programme-row-img">
             <img
-              src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=700&auto=format&fit=crop"
-              alt="Conference plenary session"
+              src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=700&auto=format&fit=crop"
+              alt="Black professionals in conference meeting"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           </div>
@@ -68,8 +68,8 @@ export default function Programme() {
         <div className="programme-row">
           <div className="programme-row-img">
             <img
-              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=700&auto=format&fit=crop"
-              alt="Focus group discussion"
+              src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=700&auto=format&fit=crop"
+              alt="Black woman leading a professional meeting"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           </div>
@@ -114,8 +114,8 @@ export default function Programme() {
           <div className="card" style={{ borderTop: '4px solid #9B1D6E' }}>
             <div style={{ height: 160, borderRadius: 10, overflow: 'hidden', marginBottom: 20 }}>
               <img
-                src="https://images.unsplash.com/photo-1627556704302-624286467c65?w=500&auto=format&fit=crop"
-                alt="Alumni organisation launch"
+                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&auto=format&fit=crop"
+                alt="African woman leader"
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
             </div>
@@ -140,8 +140,8 @@ export default function Programme() {
           <div className="card" style={{ borderTop: '4px solid #C1357A' }}>
             <div style={{ height: 160, borderRadius: 10, overflow: 'hidden', marginBottom: 20 }}>
               <img
-                src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=500&auto=format&fit=crop"
-                alt="Tours of Victoria Falls"
+                src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=500&auto=format&fit=crop"
+                alt="African professional"
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
             </div>
@@ -166,8 +166,8 @@ export default function Programme() {
           <div className="card" style={{ borderTop: '4px solid #8C6880' }}>
             <div style={{ height: 160, borderRadius: 10, overflow: 'hidden', marginBottom: 20 }}>
               <img
-                src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&auto=format&fit=crop"
-                alt="Gala dinner"
+                src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=500&auto=format&fit=crop"
+                alt="African friends celebrating together"
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
             </div>
@@ -195,8 +195,8 @@ export default function Programme() {
           <div className="card" style={{ borderTop: '4px solid #9B1D6E' }}>
             <div style={{ height: 140, borderRadius: 10, overflow: 'hidden', marginBottom: 16 }}>
               <img
-                src="https://images.unsplash.com/photo-1627556704302-624286467c65?w=500&auto=format&fit=crop"
-                alt="Alumni organisation launch"
+                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&auto=format&fit=crop"
+                alt="African woman leader"
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
             </div>
@@ -209,8 +209,8 @@ export default function Programme() {
           <div className="card" style={{ borderTop: '4px solid #C1357A' }}>
             <div style={{ height: 140, borderRadius: 10, overflow: 'hidden', marginBottom: 16 }}>
               <img
-                src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=500&auto=format&fit=crop"
-                alt="Tours of Victoria Falls"
+                src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=500&auto=format&fit=crop"
+                alt="African professional"
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
             </div>
@@ -223,8 +223,8 @@ export default function Programme() {
           <div className="card" style={{ borderTop: '4px solid #8C6880' }}>
             <div style={{ height: 140, borderRadius: 10, overflow: 'hidden', marginBottom: 16 }}>
               <img
-                src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&auto=format&fit=crop"
-                alt="Gala dinner"
+                src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=500&auto=format&fit=crop"
+                alt="African friends celebrating together"
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
             </div>
