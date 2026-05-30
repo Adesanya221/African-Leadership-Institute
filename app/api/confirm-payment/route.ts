@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
     const supabase = getSupabaseServer();
     const { error } = await supabase
       .from('registrations')
-      .update({ payment_status: 'paid' })
+      .update({ payment_status: 'success' })
       .eq('reference_id', reference_id);
 
     if (error) {

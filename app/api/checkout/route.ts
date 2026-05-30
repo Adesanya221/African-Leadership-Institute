@@ -38,10 +38,16 @@ export async function POST(req: NextRequest) {
     const origin = req.nextUrl.origin;
 
     // ── PayPal redirect (replaces Lemon Squeezy) ─────────────────────────────
-    // The PAYPAL_PAYMENT_URL env var should be your PayPal.Me link or
-    // PayPal Standard button URL.  Example:
+    //
+    // STEP 1: Paste your PayPal link in the Vercel env var PAYPAL_PAYMENT_URL
+    //
+    // Option A – PayPal Standard Button (BEST – auto-returns after payment)
+    //   https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=...&amount=50&currency_code=USD
+    //
+    // Option B – PayPal.Me (SIMPLE – user must manually come back)
     //   https://www.paypal.com/paypalme/africanleadership/50USD
-    // We append ?reference_id=... so the return page knows who paid.
+    //   Note: PayPal.Me does NOT support auto-return. Users pay and stay on PayPal.
+    //   For auto-return, use Option A (PayPal Standard Button) instead.
     // ------------------------------------------------------------------------
     const paypalBaseUrl = process.env.PAYPAL_PAYMENT_URL;
 
@@ -49,8 +55,20 @@ export async function POST(req: NextRequest) {
       throw new Error('PAYPAL_PAYMENT_URL environment variable is not configured');
     }
 
-    const separator = paypalBaseUrl.includes('?') ? '&' : '?';
-    const paypalUrl = `${paypalBaseUrl}${separator}reference_id=${encodeURIComponent(referenceId)}&return=${encodeURIComponent(`${origin}/payment/success?reference_id=${referenceId}`)}`;
+    const isPayPalStandard = paypalBaseUrl.includes('paypal.com/cgi-bin');
+
+    let paypalUrl: string;
+
+    if (isPayPalStandard) {
+      // PayPal Standard – we can append return & custom fields
+      const separator = paypalBaseUrl.includes('?') ? '&' : '?';
+      paypalUrl = `${paypalBaseUrl}${separator}custom=${encodeURIComponent(referenceId)}&return=${encodeURIComponent(`${origin}/payment/success?reference_id=${referenceId}`)}&cancel_return=${encodeURIComponent(`${origin}/?payment=cancelled`)}`;
+    } else {
+      // PayPal.Me or other simple link – just append reference_id as a hint
+      // Users won't auto-return; they must click Back or we rely on webhook/IPN
+      const separator = paypalBaseUrl.includes('?') ? '&' : '?';
+      paypalUrl = `${paypalBaseUrl}${separator}reference_id=${encodeURIComponent(referenceId)}`;
+    }
 
     return NextResponse.json({ url: paypalUrl, referenceId });
     // ────────────────────────────────────────────────────────────────────────

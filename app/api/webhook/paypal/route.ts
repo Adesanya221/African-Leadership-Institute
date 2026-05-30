@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
     const { error } = await supabase
       .from('registrations')
       .update({
-        payment_status: 'paid',
+        payment_status: 'success',
         lemon_order_id: txnId, // Re-using this column for PayPal txn_id
       })
       .eq('reference_id', referenceId);
