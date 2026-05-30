@@ -1,4 +1,3 @@
-import AutoScroll from './AutoScroll';
 import AnimateOnScroll from './AnimateOnScroll';
 
 export default function Programme() {
@@ -25,106 +24,8 @@ export default function Programme() {
           </div>
         </AnimateOnScroll>
 
-        {/* ── Mobile-only carousel redesign ── */}
-        <div className="programme-mobile-view">
-          <AutoScroll className="programme-mobile-scroll" speed={0.6}>
-            <div className="programme-mobile-card">
-              <div className="programme-mobile-img">
-                <span className="programme-mobile-step">1</span>
-                <img
-                  src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=700&auto=format&fit=crop"
-                  alt="Black professionals in conference meeting"
-                />
-                <span className="programme-mobile-label">Plenary Sessions</span>
-              </div>
-              <div className="programme-mobile-body">
-                <h3>Shaping the next chapter of African leadership</h3>
-                <p>
-                  Opening and closing plenary sessions will bring the full cohort together to reflect on
-                  20 years of the Tutu Fellowship, hear from leading voices, and define the ambition for
-                  the Alumni Organisation going forward.
-                </p>
-              </div>
-            </div>
-
-            <div className="programme-mobile-card">
-              <div className="programme-mobile-img">
-                <span className="programme-mobile-step">2</span>
-                <img
-                  src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=700&auto=format&fit=crop"
-                  alt="Black woman leading a professional meeting"
-                />
-                <span className="programme-mobile-label">Focus Groups</span>
-              </div>
-              <div className="programme-mobile-body">
-                <h3>Real work. Real outcomes.</h3>
-                <p>
-                  Structured working groups will tackle the key pillars of the Alumni Organisation:
-                  governance, programming, peer support, and advocacy. You will leave having contributed
-                  directly to something that endures.
-                </p>
-              </div>
-            </div>
-
-            <div className="programme-mobile-card">
-              <div className="programme-mobile-img">
-                <span className="programme-mobile-step">3</span>
-                <img
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&auto=format&fit=crop"
-                  alt="African woman leader"
-                />
-                <span className="programme-mobile-label">Historic Milestone</span>
-              </div>
-              <div className="programme-mobile-body">
-                <h3>Alumni Organisation Launch</h3>
-                <p>
-                  The formal establishment of the Tutu Fellows Alumni Organisation, a defining moment in
-                  the 20-year journey of the Fellowship. You will be part of history.
-                </p>
-              </div>
-            </div>
-
-            <div className="programme-mobile-card">
-              <div className="programme-mobile-img">
-                <span className="programme-mobile-step">4</span>
-                <img
-                  src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=500&auto=format&fit=crop"
-                  alt="African professional"
-                />
-                <span className="programme-mobile-label">Beyond the Boardroom</span>
-              </div>
-              <div className="programme-mobile-body">
-                <h3>Tours &amp; Excursions</h3>
-                <p>
-                  Guided tours of the Falls, optional adventure activities, and curated excursions that
-                  let the magic of the destination become part of the experience.
-                </p>
-              </div>
-            </div>
-
-            <div className="programme-mobile-card">
-              <div className="programme-mobile-img">
-                <span className="programme-mobile-step">5</span>
-                <img
-                  src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=500&auto=format&fit=crop"
-                  alt="African friends celebrating together"
-                />
-                <span className="programme-mobile-label">Celebration</span>
-              </div>
-              <div className="programme-mobile-body">
-                <h3>Gala Dinner &amp; Boma Evening</h3>
-                <p>
-                  A celebratory gala dinner and traditional boma evening to mark 20 extraordinary years,
-                  honouring the Fellows and the Fellowship.
-                </p>
-              </div>
-            </div>
-          </AutoScroll>
-          <p className="scroll-hint">← Swipe to explore →</p>
-        </div>
-
-        {/* ── Desktop-only layout ── */}
-        <div className="programme-desktop-only">
+        {/* ── Programme layout ── */}
+        <div>
 
         {/* Feature rows: both animate in together */}
         <AnimateOnScroll>
@@ -280,52 +181,6 @@ export default function Programme() {
           </div>
         </div>
 
-        {/* Mobile carousel for highlights */}
-        <AutoScroll className="programme-highlights-scroll" speed={0.6}>
-          <div className="card" style={{ borderTop: '4px solid #9B1D6E' }}>
-            <div style={{ height: 140, borderRadius: 10, overflow: 'hidden', marginBottom: 16 }}>
-              <img
-                src="/programme/Historical Milestone Alumni Organisation Launch.jpeg"
-                alt="African woman leader"
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-            </div>
-            <span style={{ fontSize: 11, fontWeight: 700, color: '#9B1D6E', textTransform: 'uppercase', letterSpacing: '.06em' }}>Historic Milestone</span>
-            <h3 style={{ margin: '10px 0 8px' }}>Alumni Organisation Launch</h3>
-            <p style={{ fontSize: 13, color: '#5C3A50', lineHeight: 1.7 }}>
-              The formal establishment of the Tutu Fellows Alumni Organisation, a defining moment in the 20-year journey of the Fellowship.
-            </p>
-          </div>
-          <div className="card" style={{ borderTop: '4px solid #C1357A' }}>
-            <div style={{ height: 140, borderRadius: 10, overflow: 'hidden', marginBottom: 16 }}>
-              <img
-                src="/programme/Tours and Excursions.jpeg"
-                alt="African professional"
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-            </div>
-            <span style={{ fontSize: 11, fontWeight: 700, color: '#C1357A', textTransform: 'uppercase', letterSpacing: '.06em' }}>Beyond the Boardroom</span>
-            <h3 style={{ margin: '10px 0 8px' }}>Tours &amp; Excursions</h3>
-            <p style={{ fontSize: 13, color: '#5C3A50', lineHeight: 1.7 }}>
-              Guided tours of the Falls, optional adventure activities, and curated excursions that let the magic of the destination become part of the experience.
-            </p>
-          </div>
-          <div className="card" style={{ borderTop: '4px solid #8C6880' }}>
-            <div style={{ height: 140, borderRadius: 10, overflow: 'hidden', marginBottom: 16 }}>
-              <img
-                src="/programme/Boma Dinner.jpeg"
-                alt="African friends celebrating together"
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-            </div>
-            <span style={{ fontSize: 11, fontWeight: 700, color: '#5C3A50', textTransform: 'uppercase', letterSpacing: '.06em' }}>Celebration</span>
-            <h3 style={{ margin: '10px 0 8px' }}>Gala Dinner &amp; Boma Evening</h3>
-            <p style={{ fontSize: 13, color: '#5C3A50', lineHeight: 1.7 }}>
-              A celebratory gala dinner and traditional boma evening to mark 20 extraordinary years, honouring the Fellows and the Fellowship.
-            </p>
-          </div>
-        </AutoScroll>
-        <p className="scroll-hint">← Swipe to explore →</p>
         </div>
         </AnimateOnScroll>
 
@@ -364,7 +219,7 @@ export default function Programme() {
         </p>
         </div>
         </AnimateOnScroll>
-        </div>{/* end programme-desktop-only */}
+        </div>
       </div>
     </section>
   );

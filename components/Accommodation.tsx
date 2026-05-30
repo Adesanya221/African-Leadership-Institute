@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useBooking, AccommodationOption } from '@/context/BookingContext';
-import AutoScroll from './AutoScroll';
 
 function range(n: number) {
   return Array.from({ length: n }, (_, i) => i + 1);
@@ -298,7 +297,6 @@ export default function Accommodation() {
         ...(prop.highlight ? { border: '1.5px solid #9B1D6E' } : undefined),
       }}
     >
-      {/* Image with gallery trigger */}
       <div
         style={{
           height: isMobile ? 140 : 160,
@@ -370,7 +368,6 @@ export default function Accommodation() {
         </span>
       </p>
 
-      {/* Room tiers — only shown for Safari Lodge */}
       {prop.roomTiers && (
         <div style={{ marginBottom: isMobile ? 10 : 12 }}>
           {prop.roomTiers.map((tier) => (
@@ -420,7 +417,7 @@ export default function Accommodation() {
   );
 
   return (
-    <section id="accommodation" style={{ background: '#fff' }}>
+    <section id="accommodation" style={{ background: '#fff', overflow: 'visible' }}>
       <div style={{ maxWidth: 1100, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: 52 }}>
           <span
@@ -441,16 +438,11 @@ export default function Accommodation() {
           </p>
         </div>
 
-        {/* Desktop grid */}
-        <div className="grid-4" style={{ gridTemplateColumns: 'repeat(3, 1fr)', justifyContent: 'center' }}>
-          {properties.map((prop) => renderCard(prop, false))}
+        <div className="accom-scroll-wrap">
+          <div className="accom-grid">
+            {properties.map((prop) => renderCard(prop, false))}
+          </div>
         </div>
-
-        {/* Mobile carousel */}
-        <AutoScroll className="carousel-scroll" speed={0.6}>
-          {properties.map((prop) => renderCard(prop, true))}
-        </AutoScroll>
-        <p className="scroll-hint">← Swipe to explore →</p>
 
         <div
           style={{
@@ -469,7 +461,6 @@ export default function Accommodation() {
         </div>
       </div>
 
-      {/* Lightbox gallery */}
       <RoomGallery
         images={gallery.images}
         isOpen={gallery.open}

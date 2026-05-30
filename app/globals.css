@@ -55,113 +55,12 @@ body {
 .animate-on-scroll-delay-2 { transition-delay: 0.30s; }
 .animate-on-scroll-delay-3 { transition-delay: 0.45s; }
 
-/* Subtle hover zoom for programme images */
 .programme-row-img img {
   transition: transform 0.6s ease;
 }
 
 .programme-row-img:hover img {
   transform: scale(1.08);
-}
-
-/* ── Mobile-only Programme carousel ── */
-.programme-mobile-view {
-  display: none;
-}
-
-.programme-mobile-scroll {
-  display: flex;
-  overflow-x: auto;
-  gap: 16px;
-  padding-bottom: 16px;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-
-.programme-mobile-scroll::-webkit-scrollbar {
-  display: none;
-}
-
-.programme-mobile-scroll > .programme-mobile-card {
-  flex-shrink: 0;
-  width: 82vw;
-  max-width: 320px;
-}
-
-.programme-mobile-card {
-  background: #fff;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(28, 9, 18, 0.08);
-}
-
-.programme-mobile-img {
-  position: relative;
-  height: 180px;
-  overflow: hidden;
-}
-
-.programme-mobile-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.programme-mobile-step {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: #fff;
-  color: #9B1D6E;
-  font-size: 13px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-.programme-mobile-label {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 10px 14px;
-  background: linear-gradient(transparent, rgba(28, 9, 18, 0.7));
-  color: #fff;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.programme-mobile-body {
-  padding: 16px 18px 20px;
-}
-
-.programme-mobile-body h3 {
-  font-family: Georgia, serif;
-  font-size: 18px;
-  font-weight: 400;
-  color: #1C0912;
-  margin: 0 0 8px;
-  line-height: 1.35;
-}
-
-.programme-mobile-body p {
-  font-size: 13px;
-  color: #5C3A50;
-  line-height: 1.65;
-  margin: 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
 nav {
@@ -531,6 +430,14 @@ label {
   gap: 16px;
 }
 
+/* Accommodation grid */
+.accom-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  justify-content: center;
+}
+
 .costs-connector {
   position: absolute;
   top: 32px;
@@ -568,7 +475,7 @@ label {
   height: 340px;
 }
 
-/* Programme highlights - desktop grid, mobile carousel */
+/* Programme highlights */
 .programme-highlights {
   margin-bottom: 48px;
 }
@@ -598,26 +505,6 @@ label {
   text-align: center;
 }
 
-/* Carousel base (used on mobile) */
-.carousel {
-  display: grid;
-}
-
-.carousel-scroll {
-  display: none;
-}
-
-/* Scroll hint indicator */
-.scroll-hint {
-  display: none;
-  text-align: center;
-  margin-top: 12px;
-  font-size: 12px;
-  color: #9B1D6E;
-  opacity: 0.7;
-}
-
-/* Utility classes for responsive typography & spacing */
 .section-lead {
   font-size: 26px;
   font-weight: 400;
@@ -644,43 +531,8 @@ label {
   padding: 16px 36px;
 }
 
-/* Auto-scroll marquee wrapper */
-.auto-scroll {
-  display: flex;
-  overflow-x: auto;
-  gap: 14px;
-  padding-bottom: 16px;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-
-.auto-scroll::-webkit-scrollbar {
-  display: none;
-}
-
-.auto-scroll > * {
-  flex-shrink: 0;
-}
-
-/* Costs mobile horizontal scroll */
-.costs-mobile-2,
-.costs-mobile-3 {
-  display: none;
-}
-
-.costs-scroll-2 > .card {
-  flex: 0 0 85vw;
-  max-width: 360px;
-}
-
-.costs-scroll-3 > .card {
-  flex: 0 0 80vw;
-  max-width: 320px;
-}
-
 /* ===== RESPONSIVE ===== */
 
-/* Large tablets / small desktops */
 @media (max-width: 1024px) {
   .grid-4 {
     grid-template-columns: 1fr 1fr;
@@ -703,7 +555,6 @@ label {
   }
 }
 
-/* Tablets */
 @media (max-width: 768px) {
   nav {
     padding: 14px 20px;
@@ -760,34 +611,38 @@ label {
   }
 
   .grid-4 {
-    display: none;
+    grid-template-columns: 1fr;
   }
 
-  .carousel {
-    display: none;
+  /* Accommodation carousel on mobile */
+  .accom-scroll-wrap {
+    margin-left: -20px;
+    margin-right: -20px;
+    overflow: hidden;
   }
 
-  .carousel-scroll {
+  .accom-grid {
     display: flex;
     overflow-x: auto;
-    scroll-snap-type: x mandatory;
     gap: 14px;
-    padding-bottom: 16px;
+    padding: 4px 20px 16px;
+    margin: 0;
+    justify-content: flex-start;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 20px;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
 
-  .carousel-scroll::-webkit-scrollbar {
+  .accom-grid::-webkit-scrollbar {
     display: none;
   }
 
-  .carousel-scroll .accom-card {
-    flex: 0 0 280px;
+  .accom-grid .accom-card {
+    flex: 0 0 calc(100vw - 40px);
+    max-width: calc(100vw - 40px);
+    min-width: 0;
     scroll-snap-align: start;
-  }
-
-  .scroll-hint {
-    display: block;
   }
 
   .programme-row {
@@ -801,26 +656,9 @@ label {
   }
 
   .programme-highlights-grid {
-    display: none;
-  }
-
-  .programme-highlights-scroll {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 14px;
-    padding-bottom: 16px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-
-  .programme-highlights-scroll::-webkit-scrollbar {
-    display: none;
-  }
-
-  .programme-highlights-scroll .card {
-    flex: 0 0 280px;
-    scroll-snap-align: start;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
   }
 
   .gallery-main {
@@ -841,20 +679,12 @@ label {
   }
 
   .gallery-bottom {
-    display: flex;
-    overflow-x: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 12px;
-    padding-bottom: 12px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-
-  .gallery-bottom::-webkit-scrollbar {
-    display: none;
   }
 
   .gallery-bottom-item {
-    flex: 0 0 200px;
     height: 160px;
   }
 
@@ -885,31 +715,8 @@ label {
     align-items: flex-start;
   }
 
-  .costs-timeline {
-    display: none;
-  }
-
   .costs-connector {
     display: none;
-  }
-
-  .costs-timeline {
-    display: none;
-  }
-
-  .costs-connector {
-    display: none;
-  }
-
-  /* Costs mobile carousels */
-  .costs-desktop-2,
-  .costs-desktop-3 {
-    display: none !important;
-  }
-
-  .costs-mobile-2,
-  .costs-mobile-3 {
-    display: flex !important;
   }
 
   .section-lead {
@@ -933,7 +740,6 @@ label {
     padding: 14px 28px;
   }
 
-  /* Mobile nav dropdown as stacked menu */
   nav.nav-open .nav-links {
     flex-direction: column;
     align-items: stretch;
@@ -951,7 +757,6 @@ label {
   }
 }
 
-/* Small phones */
 @media (max-width: 480px) {
   section {
     padding: 48px 18px;
@@ -980,7 +785,6 @@ label {
     margin-bottom: 22px;
   }
 
-  /* Form grids go single column on phone */
   .grid-2 {
     grid-template-columns: 1fr;
     gap: 16px;
@@ -1005,28 +809,35 @@ label {
   }
 
   .gallery-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 10px;
   }
 
   .gallery-bottom-item {
-    flex: 0 0 72vw;
     height: 160px;
-  }
-
-  .carousel-scroll {
-    gap: 12px;
-  }
-
-  .carousel-scroll .accom-card {
-    flex: 0 0 78vw;
-  }
-
-  .programme-highlights-scroll .card {
-    flex: 0 0 78vw;
   }
 
   .accom-card {
     padding: 18px;
+  }
+
+  /* Match the 18px section padding at 480px */
+  .accom-scroll-wrap {
+    margin-left: -18px;
+    margin-right: -18px;
+  }
+
+  .accom-grid {
+    padding-left: 18px;
+    padding-right: 18px;
+    margin: 0;
+    scroll-padding-left: 18px;
+  }
+
+  .accom-grid .accom-card {
+    flex: 0 0 calc(100vw - 36px);
+    max-width: calc(100vw - 36px);
   }
 
   .card {
@@ -1067,15 +878,6 @@ label {
 
   .programme-row-img {
     height: 180px;
-  }
-
-  /* Show distinct mobile Programme design */
-  .programme-mobile-view {
-    display: block;
-  }
-
-  .programme-desktop-only {
-    display: none !important;
   }
 
   .register-footer {
@@ -1130,10 +932,5 @@ label {
 
   .quote-box p {
     font-size: 16px !important;
-  }
-
-  .scroll-hint {
-    font-size: 11px;
-    margin-top: 8px;
   }
 }

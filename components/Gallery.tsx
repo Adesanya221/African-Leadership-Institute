@@ -162,7 +162,6 @@ export default function Gallery() {
             </div>
           ))}
         </div>
-        <p className="scroll-hint" style={{ color: 'rgba(250,232,243,0.5)' }}>← Swipe to explore →</p>
       </div>
     </section>
   );
