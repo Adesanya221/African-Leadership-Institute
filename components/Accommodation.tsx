@@ -56,7 +56,6 @@ function RoomGallery({ images, isOpen, onClose }: RoomGalleryProps) {
       }}
       onClick={onClose}
     >
-      {/* Close button */}
       <button
         onClick={onClose}
         style={{
@@ -80,7 +79,6 @@ function RoomGallery({ images, isOpen, onClose }: RoomGalleryProps) {
         &times;
       </button>
 
-      {/* Main image */}
       <div
         style={{
           position: 'relative',
@@ -106,7 +104,6 @@ function RoomGallery({ images, isOpen, onClose }: RoomGalleryProps) {
           }}
         />
 
-        {/* Arrows */}
         {images.length > 1 && (
           <>
             <button
@@ -159,7 +156,6 @@ function RoomGallery({ images, isOpen, onClose }: RoomGalleryProps) {
         )}
       </div>
 
-      {/* Thumbnail strip */}
       <div
         style={{
           display: 'flex',
@@ -197,12 +193,32 @@ function RoomGallery({ images, isOpen, onClose }: RoomGalleryProps) {
         ))}
       </div>
 
-      {/* Counter */}
       <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: 13, marginTop: 8 }}>
         {current + 1} / {images.length}
       </p>
     </div>
   );
+}
+
+interface RoomTier {
+  label: string;
+  price: string;
+}
+
+interface Property {
+  name: string;
+  type: string;
+  images: string[];
+  desc: string;
+  price: string;
+  priceSuffix: string;
+  roomTiers?: RoomTier[];
+  features: string[];
+  highlight: boolean;
+  typeColor: string;
+  btnStyle: string;
+  btnText: string;
+  selectValue: AccommodationOption;
 }
 
 export default function Accommodation() {
@@ -220,15 +236,15 @@ export default function Accommodation() {
     }
   };
 
-  const properties = [
+  const properties: Property[] = [
     {
       name: 'Victoria Falls Estates',
       type: 'Self-Catering Apartments',
       images: getRoomImages('victoria-falls-estates', 29),
       desc: 'Spacious self-catering apartments with 2-bed and 3-bed configurations, ideal for Fellows who prefer to share. Flexible and independent.',
-      price: '~US$100',
-      priceSuffix: '/person/night (TBC)',
-      features: ['60 units held for AFLI group', '2-bed and 3-bed options', 'Available until filled'],
+      price: 'US$100',
+      priceSuffix: '/person/night',
+      features: ['60 rooms held', 'Available until filled', 'Breakfast and tea included'],
       highlight: false,
       typeColor: '#5C3A50',
       btnStyle: 'btn-outline',
@@ -239,10 +255,10 @@ export default function Accommodation() {
       name: 'Zambezi Boutique Lodge',
       type: 'Boutique Guest Lodge',
       images: getRoomImages('zambezi-boutique', 7),
-      desc: "AFLI's operational base for the retreat. Intimate and social, with breakfast and teas included. The informal gathering point for the programme team and Fellows.",
-      price: '~US$100',
-      priceSuffix: '/person/night (TBC)',
-      features: ['22 rooms only (limited availability)', 'Breakfast & teas included', 'Available until filled'],
+      desc: 'Intimate and social, with breakfast and teas included. Ideal for fellows who prefer to be located at the informal gathering point for the programme.',
+      price: 'US$100',
+      priceSuffix: '/person/night',
+      features: ['15 rooms available', 'Breakfast & teas included'],
       highlight: false,
       typeColor: '#5C3A50',
       btnStyle: 'btn-outline',
@@ -254,36 +270,32 @@ export default function Accommodation() {
       type: 'Main Conference Venue',
       images: getRoomImages('victoria-falls-safari', 22),
       desc: 'The primary conference venue for all retreat sessions. Staying here puts you at the heart of the programme, with no transfers needed between accommodation and sessions.',
-      price: 'TBC',
-      priceSuffix: ' (AFLI rate)',
-      features: ['45+ rooms available', 'All sessions on-site', 'Boma & gala dinner venue'],
-      highlight: true,
-      typeColor: '#9B1D6E',
-      btnStyle: 'btn-primary',
-      btnText: 'Select This Option',
-      selectValue: 'Victoria Falls Safari Lodge (Conference Venue)' as AccommodationOption,
-    },
-    {
-      name: 'Vic Falls Hotel – Livingstone Room',
-      type: '5-Star Partner Property',
-      images: getRoomImages('vic-falls-hotel', 7),
-      desc: 'Premium lodging at the iconic Victoria Falls Hotel. AFLI preferential rates are available. Elegant heritage accommodation with stunning garden views.',
-      price: 'Varies',
-      priceSuffix: ' + AFLI rate',
-      features: ['Heritage property', 'AFLI group rate available', 'Garden & lawn views'],
+      price: 'from US$215',
+      priceSuffix: '/room/night',
+      roomTiers: [
+        { label: 'Standard Room (x34)', price: 'US$215' },
+        { label: 'Standard Room B (x4)', price: 'US$278' },
+        { label: '2-Bed Safari Suite (x3)', price: 'US$536/suite' },
+        { label: '3-Bed Safari Suite (x2)', price: 'US$715/suite' },
+      ],
+      features: ['45 rooms held', 'All sessions on-site including Boma & gala dinner venue', 'Breakfast & teas included'],
       highlight: false,
       typeColor: '#5C3A50',
       btnStyle: 'btn-outline',
-      btnText: 'Enquire',
-      selectValue: '5-Star Partner Hotels (Enquire)' as AccommodationOption,
+      btnText: 'Select This Option',
+      selectValue: 'Victoria Falls Safari Lodge (Conference Venue)' as AccommodationOption,
     },
   ];
 
-  const renderCard = (prop: typeof properties[0], isMobile: boolean) => (
+  const renderCard = (prop: Property, isMobile: boolean) => (
     <div
       key={prop.name}
       className="accom-card"
-      style={prop.highlight ? { border: '1.5px solid #9B1D6E' } : undefined}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        ...(prop.highlight ? { border: '1.5px solid #9B1D6E' } : undefined),
+      }}
     >
       {/* Image with gallery trigger */}
       <div
@@ -322,6 +334,7 @@ export default function Accommodation() {
           <span>{prop.images.length} photos</span>
         </div>
       </div>
+
       <div style={{ marginBottom: isMobile ? 10 : 12 }}>
         <p
           style={{
@@ -337,6 +350,7 @@ export default function Accommodation() {
         </p>
         <h3 style={{ fontSize: isMobile ? 15 : 16 }}>{prop.name}</h3>
       </div>
+
       <p
         style={{
           fontSize: isMobile ? 12 : 13,
@@ -347,12 +361,36 @@ export default function Accommodation() {
       >
         {prop.desc}
       </p>
+
       <p style={{ fontSize: isMobile ? 20 : 22, fontWeight: 700, color: '#9B1D6E', marginBottom: 4 }}>
         {prop.price}
         <span style={{ fontSize: isMobile ? 12 : 13, fontWeight: 500, color: '#5C3A50' }}>
           {prop.priceSuffix}
         </span>
       </p>
+
+      {/* Room tiers — only shown for Safari Lodge */}
+      {prop.roomTiers && (
+        <div style={{ marginBottom: isMobile ? 10 : 12 }}>
+          {prop.roomTiers.map((tier) => (
+            <div
+              key={tier.label}
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                fontSize: isMobile ? 11 : 12,
+                color: '#5C3A50',
+                padding: '4px 0',
+                borderBottom: '0.5px solid rgba(92,58,80,0.15)',
+              }}
+            >
+              <span>{tier.label}</span>
+              <span style={{ fontWeight: 600 }}>{tier.price}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
       <ul
         style={{
           listStyle: 'none',
@@ -369,9 +407,10 @@ export default function Accommodation() {
           </li>
         ))}
       </ul>
+
       <button
         className={`btn ${prop.btnStyle}`}
-        style={{ width: '100%', justifyContent: 'center', fontSize: isMobile ? 12 : 13 }}
+        style={{ width: '100%', justifyContent: 'center', fontSize: isMobile ? 12 : 13, marginTop: 'auto' }}
         onClick={() => handleSelect(prop.selectValue)}
       >
         {prop.btnText}
@@ -402,7 +441,7 @@ export default function Accommodation() {
         </div>
 
         {/* Desktop grid */}
-        <div className="grid-4">
+        <div className="grid-4" style={{ gridTemplateColumns: 'repeat(3, 1fr)', justifyContent: 'center' }}>
           {properties.map((prop) => renderCard(prop, false))}
         </div>
 

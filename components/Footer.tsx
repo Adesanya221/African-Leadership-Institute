@@ -3,13 +3,26 @@ export default function Footer() {
     <footer style={{ background: '#2D0A1E', padding: '60px 56px', color: 'rgba(250,232,243,0.85)' }}>
       <div className="footer-inner">
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 14 }}>
-            <img
-              src="/afli-logo.gif"
-              alt="African Leadership Institute"
-              style={{ height: 36, width: 'auto', filter: 'brightness(0) invert(1) brightness(0.9)' }}
-            />
-          </div>
+          <div className="logo-area">
+        <img
+          src="/afli-logo.gif"
+          alt="African Leadership Institute"
+          style={{ height: 38, width: 'auto' }}
+        />
+        <div
+          style={{
+            width: 1,
+            height: 40,
+            background: 'rgba(155,29,110,0.2)',
+            flexShrink: 0,
+          }}
+        />
+        <img
+          src="/Afli 20th Anniversary Logo.png"
+          alt="Tutu Fellows 20th Year Reunion"
+          style={{ height: 50, width: 'auto' }}
+        />
+      </div>
           <p
             style={{
               fontSize: 13,
@@ -27,7 +40,7 @@ export default function Footer() {
             alinstitute.org
           </p>
           <p style={{ fontSize: 13, color: 'rgba(250,232,243,0.6)', marginBottom: 6 }}>
-            info@alinstitute.org
+            programme@alinstitute.org
           </p>
           <div className="footer-badges">
             <span

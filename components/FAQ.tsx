@@ -27,7 +27,7 @@ export default function FAQ() {
       a: 'The administration fee covers all programme costs associated with the retreat: facilitation, materials, conference space, meals and refreshments during sessions, the gala dinner, the boma evening, excursions, and onsite logistics coordination across all five days.',
     },
     {
-      q: 'Is the US$50 deposit refundable?',
+      q: 'Is the US$150 deposit refundable?',
       a: 'The deposit is non-refundable. However, it is deducted from your total payment and is not charged in addition to the balance. It serves to confirm your commitment and secure your place at the retreat.',
     },
     {

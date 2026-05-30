@@ -183,7 +183,7 @@ export default function Register() {
           </span>
           <h2>Register &amp; Pay Your Deposit</h2>
           <p className="sub">
-            Complete your details and pay the US$50 deposit to confirm your spot. Your place is only
+            Complete your details and pay the US$150 deposit to confirm your spot. Your place is only
             secured once the deposit is received. Deadline: <strong>30 June 2026.</strong>
           </p>
         </div>
@@ -336,7 +336,7 @@ export default function Register() {
               <p style={{ fontSize: 13, color: '#5C3A50', marginBottom: 4 }}>
                 Deposit payable on submission
               </p>
-              <p style={{ fontSize: 32, fontWeight: 700, color: '#9B1D6E' }}>US$50.00</p>
+              <p style={{ fontSize: 32, fontWeight: 700, color: '#9B1D6E' }}>US$150.00</p>
               <p style={{ fontSize: 12, color: '#5C3A50', marginTop: 4 }}>
                 Deducted from your total. Non-refundable.
               </p>

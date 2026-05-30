@@ -16,22 +16,16 @@ export default function Navbar() {
         <div
           style={{
             width: 1,
-            height: 28,
+            height: 40,
             background: 'rgba(155,29,110,0.2)',
             flexShrink: 0,
           }}
         />
-        <span
-          style={{
-            fontSize: 12,
-            fontWeight: 600,
-            color: '#5C3A50',
-            letterSpacing: '.02em',
-            lineHeight: 1.3,
-          }}
-        >
-          Tutu Fellows<br />20th Year Reunion
-        </span>
+        <img
+          src="/Afli 20th Anniversary Logo.png"
+          alt="Tutu Fellows 20th Year Reunion"
+          style={{ height: 50, width: 'auto' }}
+        />
       </div>
       <button
         className="nav-toggle"

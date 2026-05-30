@@ -3,11 +3,39 @@ export default function Hero() {
     <section
       id="hero"
       className="hero-section"
-      style={{
-        background:
-          "linear-gradient(135deg, rgba(45,10,30,0.88) 0%, rgba(155,29,110,0.78) 100%), url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=1600&auto=format&fit=crop&q=80') center/cover no-repeat",
-      }}
+      style={{ position: 'relative', overflow: 'hidden' }}
     >
+      {/* Background video */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          zIndex: 0,
+        }}
+      >
+        <source src="/gallery/heroo.mp4" type="video/mp4" />
+      </video>
+
+      {/* Dark overlay */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background:
+            'linear-gradient(135deg, rgba(45,10,30,0.88) 0%, rgba(155,29,110,0.78) 100%)',
+          zIndex: 1,
+        }}
+      />
+
+      {/* Radial glow */}
       <div
         style={{
           position: 'absolute',
@@ -17,9 +45,12 @@ export default function Hero() {
           bottom: 0,
           background:
             'radial-gradient(ellipse at 30% 40%, rgba(155,29,110,0.15) 0%, transparent 60%)',
+          zIndex: 1,
         }}
       />
-      <div className="hero-content">
+
+      {/* Content */}
+      <div className="hero-content" style={{ position: 'relative', zIndex: 2 }}>
         <div
           style={{
             display: 'flex',

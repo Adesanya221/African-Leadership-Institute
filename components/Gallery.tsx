@@ -43,8 +43,8 @@ export default function Gallery() {
         <div className="gallery-main">
           <div className="gallery-main-img">
             <img
-              src="/gallery/gallery-1.jpg"
-              alt="Victoria Falls Estates"
+              src="/gallery/vic falls.jpg"
+              alt="Victoria Falls"
               style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
             />
             <div
@@ -58,10 +58,10 @@ export default function Gallery() {
               }}
             >
               <span style={{ color: '#fff', fontSize: 13, fontWeight: 600 }}>
-                Victoria Falls Estates
+                Victoria Falls
               </span>
               <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: 11, marginTop: 3 }}>
-                Exclusive private estate accommodation
+                The fourth wonder of the world
               </p>
             </div>
           </div>
@@ -116,12 +116,12 @@ export default function Gallery() {
         <div className="gallery-bottom">
           {[
             {
-              src: '/gallery/gallery-4.jpg',
-              alt: 'Victoria Falls Estates room',
+              src: '/gallery/victoria-falls-hotel-facade.jpg.webp',
+              alt: 'Victoria Falls Estates',
               label: 'Estate Living',
             },
             {
-              src: '/gallery/gallery-5.jpg',
+              src: '/gallery/outdoor-pool.jpg.webp',
               alt: 'Vic Falls Hotel Livingstone Room',
               label: 'Vic Falls Hotel',
             },
@@ -131,9 +131,9 @@ export default function Gallery() {
               label: 'Safari Suite',
             },
             {
-              src: '/gallery/gallery-7.jpg',
+              src: '/gallery/victoria-falls-safari-lodge-3.png',
               alt: 'Victoria Falls Estates',
-              label: 'Luxury Rooms',
+              label: 'Luxury Accomodation',
             },
           ].map((item) => (
             <div

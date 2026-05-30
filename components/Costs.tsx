@@ -41,17 +41,7 @@ export default function Costs() {
                 📋
               </div>
               <div>
-                <span
-                  style={{
-                    fontSize: 11,
-                    fontWeight: 700,
-                    color: '#9B1D6E',
-                    textTransform: 'uppercase',
-                    letterSpacing: '.06em',
-                  }}
-                >
-                  Fixed Cost
-                </span>
+                
                 <h3 style={{ margin: '4px 0 0' }}>Alumni Organization Contribution</h3>
               </div>
             </div>
@@ -59,14 +49,14 @@ export default function Costs() {
               US$150
             </p>
             <p style={{ fontSize: 13, color: '#5C3A50', lineHeight: 1.7, marginBottom: 16 }}>
-              Covers administration and other associated costs. You may also feel free to contribute
+              Covers alumni organisation setup cost, programmatic expenses and other associated reunion costs. You may also feel free to contribute
               generously.
             </p>
-            <div style={{ background: '#F9EEF5', borderRadius: 8, padding: '12px 16px' }}>
+            {/* <div style={{ background: '#F9EEF5', borderRadius: 8, padding: '12px 16px' }}>
               <p style={{ fontSize: 12, color: '#4A0A33', fontWeight: 600 }}>
                 Same for all Fellows. No variation.
               </p>
-            </div>
+            </div> */}
           </div>
 
           <div className="card" style={{ borderTop: '4px solid #8C6880' }}>
@@ -87,33 +77,17 @@ export default function Costs() {
                 🏨
               </div>
               <div>
-                <span
-                  style={{
-                    fontSize: 11,
-                    fontWeight: 700,
-                    color: '#5C3A50',
-                    textTransform: 'uppercase',
-                    letterSpacing: '.06em',
-                  }}
-                >
-                  Variable Cost
-                </span>
-                <h3 style={{ margin: '4px 0 0' }}>Accommodation</h3>
+                
+                <h3 style={{ margin: '4px 0 0' }}>Accommodation and Lodge</h3>
               </div>
             </div>
-            <p className="price-big" style={{ color: '#5C3A50' }}>
-              Varies
-            </p>
+            
             <p style={{ fontSize: 13, color: '#5C3A50', lineHeight: 1.7, marginBottom: 16 }}>
               Your accommodation cost depends on which property and room type you select. All rates
               have been negotiated by AFLI. See the Accommodation section below for full pricing per
               option.
             </p>
-            <div style={{ background: '#EBE0E7', borderRadius: 8, padding: '12px 16px' }}>
-              <p style={{ fontSize: 12, color: '#3A2430', fontWeight: 600 }}>
-                Confirmed upon your accommodation selection.
-              </p>
-            </div>
+            
           </div>
         </div>
 
@@ -141,7 +115,7 @@ export default function Costs() {
             Three Payment Tranches
           </h3>
           <p style={{ fontSize: 14, color: '#5C3A50' }}>
-            Your total is paid in three stages leading up to the retreat.
+            To make payments flexible and easy to manage, your total is split across three tranches leading up to the retreat.
           </p>
         </div>
 
@@ -169,7 +143,7 @@ export default function Costs() {
               </div>
               <h3>Deposit</h3>
               <p style={{ fontSize: 32, fontWeight: 700, color: '#9B1D6E', margin: '12px 0' }}>
-                US$50
+                US$150
               </p>
               <p style={{ fontSize: 14, color: '#5C3A50', marginBottom: 12 }}>
                 Secures your place and confirms your registration. Payable at the time of sign-up.
@@ -213,8 +187,7 @@ export default function Costs() {
                 50%
               </p>
               <p style={{ fontSize: 14, color: '#5C3A50', marginBottom: 12 }}>
-                50% of your remaining balance (Alumni Organization Contribution + accommodation),
-                funds supplier commitments.
+                50% of your hotel cost, this will be calculated based on your room selection.
               </p>
               <span
                 style={{
