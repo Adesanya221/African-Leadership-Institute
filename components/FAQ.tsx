@@ -11,6 +11,30 @@ export default function FAQ() {
 
   const faqs = [
     {
+      q: 'Why Victoria Falls?',
+      a: (
+        <>
+          <p>
+            Victoria Falls was selected because it is accessible, practical for regional travel, visa-friendly for many African passport holders, and offers a wide range of accommodation options suitable for different budgets.
+          </p>
+          <div style={{ marginTop: 14 }}>
+            <p style={{ marginBottom: 10 }}>
+              <strong>Accessible:</strong> Victoria Falls is easily accessible, with major regional hubs linked directly. Because of its central location, it is a short flight from many of these hubs.
+            </p>
+            <p style={{ marginBottom: 10 }}>
+              <strong>Ease of travel:</strong> Airlines flying directly into Victoria Falls include Ethiopian Airlines with four flights a week, Kenya Airways three times a week, Air Tanzania, several daily flights from Johannesburg, several daily flights from Harare, and one direct weekly flight from Frankfurt. There is also unconfirmed talk of Emirates possibly landing directly later in the year.
+            </p>
+            <p style={{ marginBottom: 10 }}>
+              <strong>Visa:</strong> Very few African countries require visas to enter Zimbabwe. AFLI can make arrangements where needed without much difficulty. Fellows travelling on international passports such as European or US passports may have visa requirements and visa costs.
+            </p>
+            <p>
+              <strong>Affordability:</strong> Victoria Falls offers a wide range of accommodation, from affordable, good-quality facilities to more premium options. AFLI has curated strong accommodation options starting from US$100 per night, including options to share, as well as preferential rates for more expensive hotels. Travel is also affordable and consistent with regional flight costs, especially when bookings are made early.
+            </p>
+          </div>
+        </>
+      ),
+    },
+    {
       q: 'Will AFLI arrange airport transfers?',
       a: 'Yes. Love For Africa will coordinate airport transfers for all registered Fellows travelling into Victoria Falls International Airport (VFA) or Harry Mwanga Nkumbula International Airport in Livingstone (LVI). You will be asked to provide your flight details as part of the registration process.',
     },

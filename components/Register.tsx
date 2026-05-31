@@ -128,7 +128,7 @@ export default function Register() {
             </p>
             <p style={{ fontSize: 15, color: '#5C3A50', lineHeight: 1.8, maxWidth: 520, margin: '0 auto 24px' }}>
               You will receive a confirmation email at <strong>{form.email}</strong> with payment
-              instructions for the US$50 deposit. Your place will be fully secured once the deposit
+              instructions for the US$150 deposit. Your place will be fully secured once the deposit
               is received.
             </p>
             <div
@@ -157,7 +157,7 @@ export default function Register() {
             <p style={{ fontSize: 13, color: '#5C3A50' }}>
               Questions? Contact{' '}
               <a href="mailto:info@alinstitute.org" style={{ color: '#9B1D6E', fontWeight: 600 }}>
-                info@alinstitute.org
+                programme@alinstitute.org
               </a>
             </p>
           </div>
@@ -246,26 +246,26 @@ export default function Register() {
                 style={errors.cohort ? { borderColor: '#e53e3e' } : undefined}
               >
                 <option value="">Select cohort…</option>
-                <option>2005 (Cohort 1)</option>
-                <option>2006 (Cohort 2)</option>
-                <option>2007 (Cohort 3)</option>
-                <option>2008 (Cohort 4)</option>
-                <option>2009 (Cohort 5)</option>
-                <option>2010 (Cohort 6)</option>
-                <option>2011 (Cohort 7)</option>
-                <option>2012 (Cohort 8)</option>
-                <option>2013 (Cohort 9)</option>
-                <option>2014 (Cohort 10)</option>
-                <option>2015 (Cohort 11)</option>
-                <option>2016 (Cohort 12)</option>
-                <option>2017 (Cohort 13)</option>
-                <option>2018 (Cohort 14)</option>
-                <option>2019 (Cohort 15)</option>
-                <option>2020 (Cohort 16)</option>
-                <option>2021 (Cohort 17)</option>
-                <option>2022 (Cohort 18)</option>
-                <option>2023 (Cohort 19)</option>
-                <option>2024 (Cohort 20)</option>
+                <option>2006 (Cohort 1)</option>
+                <option>2007 (Cohort 2)</option>
+                <option>2008 (Cohort 3)</option>
+                <option>2009 (Cohort 4)</option>
+                <option>2010 (Cohort 5)</option>
+                <option>2011 (Cohort 6)</option>
+                <option>2012 (Cohort 7)</option>
+                <option>2013 (Cohort 8)</option>
+                <option>2014 (Cohort 9)</option>
+                <option>2015 (Cohort 10)</option>
+                <option>2016 (Cohort 11)</option>
+                <option>2017 (Cohort 12)</option>
+                <option>2018 (Cohort 13)</option>
+                <option>2019 (Cohort 14)</option>
+                <option>2020 (Cohort 15)</option>
+                <option>2021 (Cohort 16)</option>
+                <option>2022 (Cohort 17)</option>
+                <option>2023 (Cohort 18)</option>
+                <option>2024 (Cohort 19)</option>
+                <option>2025 (Cohort 20)</option>
               </select>
               {errors.cohort && (
                 <p style={{ fontSize: 12, color: '#e53e3e', marginTop: 4 }}>{errors.cohort}</p>
