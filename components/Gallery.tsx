@@ -118,7 +118,7 @@ export default function Gallery() {
             {
               src: '/gallery/victoria-falls-hotel-facade.jpg.webp',
               alt: 'Victoria Falls Estates',
-              label: 'Estate Living',
+              label: 'Victoria Falls Hotel',
             },
             {
               src: '/gallery/outdoor-pool.jpg.webp',

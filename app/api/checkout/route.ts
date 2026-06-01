@@ -8,7 +8,7 @@ import { getSupabase } from '@/lib/supabase';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { fullName, email, country, cohort, phone, accommodation, notes } = body;
+    const { fullName, email, country, cohort, phone, accommodation, notes, paymentMethod } = body;
 
     // Generate unique AFLI reference ID
     const supabase = getSupabase();
@@ -33,6 +33,11 @@ export async function POST(req: NextRequest) {
     if (dbError) {
       console.error('Supabase insert error:', dbError);
       // Don't block payment if DB save fails — log it and continue
+    }
+
+    // ── KKiaPay / Bank transfer: payment handled separately, just return referenceId ──
+    if (paymentMethod === 'kkiapay' || paymentMethod === 'bank') {
+      return NextResponse.json({ referenceId });
     }
 
     const origin = req.nextUrl.origin;
