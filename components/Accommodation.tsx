@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useBooking, AccommodationOption } from '@/context/BookingContext';
 
 function range(n: number) {
@@ -227,6 +227,21 @@ export default function Accommodation() {
     images: [],
     open: false,
   });
+  const [activeCard, setActiveCard] = useState(0);
+  const [hasScrolled, setHasScrolled] = useState(false);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const grid = gridRef.current;
+    if (!grid) return;
+    const handleScroll = () => {
+      setHasScrolled(true);
+      const cardWidth = grid.scrollWidth / 3;
+      setActiveCard(Math.round(grid.scrollLeft / cardWidth));
+    };
+    grid.addEventListener('scroll', handleScroll, { passive: true });
+    return () => grid.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleSelect = (selectValue: AccommodationOption) => {
     setSelectedAccommodation(selectValue);
@@ -438,10 +453,25 @@ export default function Accommodation() {
           </p>
         </div>
 
-        <div className="accom-scroll-wrap">
-          <div className="accom-grid">
+        <div className={`accom-scroll-wrap${hasScrolled ? ' scrolled' : ''}`}>
+          <div className="accom-grid" ref={gridRef}>
             {properties.map((prop) => renderCard(prop, false))}
           </div>
+        </div>
+
+        {/* Scroll hint — mobile only, fades out after first scroll */}
+        <div className={`accom-scroll-hint${hasScrolled ? ' accom-scroll-hint--hidden' : ''}`}>
+          <span className="accom-scroll-hint__arrow">&#8592;</span>
+          <span>Swipe to explore all options</span>
+          <span className="accom-scroll-hint__arrow">&#8594;</span>
+        </div>
+        <div className="accom-scroll-dots">
+          {[0, 1, 2].map((i) => (
+            <span
+              key={i}
+              className={`accom-scroll-dot${activeCard === i ? ' accom-scroll-dot--active' : ''}`}
+            />
+          ))}
         </div>
 
         <div

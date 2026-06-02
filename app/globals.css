@@ -430,6 +430,17 @@ label {
   gap: 16px;
 }
 
+/* Accommodation scroll wrap base */
+.accom-scroll-wrap {
+  position: relative;
+}
+
+/* Scroll hint — hidden on desktop */
+.accom-scroll-hint,
+.accom-scroll-dots {
+  display: none;
+}
+
 /* Accommodation grid */
 .accom-grid {
   display: grid;
@@ -619,6 +630,80 @@ label {
     margin-left: -20px;
     margin-right: -20px;
     overflow: hidden;
+  }
+
+  /* Right-edge fade gradient — hints at more content */
+  .accom-scroll-wrap::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 64px;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.92));
+    pointer-events: none;
+    z-index: 2;
+    transition: opacity 0.35s ease;
+  }
+
+  .accom-scroll-wrap.scrolled::after {
+    opacity: 0;
+  }
+
+  /* Swipe hint text */
+  .accom-scroll-hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #9B1D6E;
+    letter-spacing: .03em;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+  }
+
+  .accom-scroll-hint--hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .accom-scroll-hint__arrow {
+    display: inline-block;
+    animation: accomSwipeHint 1.6s ease-in-out infinite;
+  }
+
+  .accom-scroll-hint__arrow:first-child {
+    animation-direction: reverse;
+  }
+
+  @keyframes accomSwipeHint {
+    0%, 100% { transform: translateX(0); }
+    50%       { transform: translateX(4px); }
+  }
+
+  /* Dot indicators */
+  .accom-scroll-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    margin-top: 10px;
+  }
+
+  .accom-scroll-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(155, 29, 110, 0.22);
+    transition: background 0.3s, transform 0.3s;
+  }
+
+  .accom-scroll-dot--active {
+    background: #9B1D6E;
+    transform: scale(1.3);
   }
 
   .accom-grid {
