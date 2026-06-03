@@ -3,14 +3,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useBooking } from '@/context/BookingContext';
 
-declare global {
-  interface Window {
-    openKkiapayWidget: (options: Record<string, unknown>) => void;
-    addSuccessListener: (cb: (res: { transactionId: string }) => void) => void;
-    addFailedListener: (cb: (err: unknown) => void) => void;
-  }
-}
-
 interface FormData {
   fullName: string;
   email: string;
@@ -38,7 +30,9 @@ export default function Register() {
   const [paymentMethod, setPaymentMethod] = useState<'kkiapay' | 'payfast' | 'paypal'>('kkiapay');
   const [showBankingModal, setShowBankingModal] = useState(false);
   const referenceIdRef = useRef<string>('');
-  const listenersAdded = useRef(false);
+  const [xofAmount, setXofAmount] = useState<number | null>(null);
+  const [xofRate, setXofRate] = useState<number | null>(null);
+  const [xofCopied, setXofCopied] = useState(false);
   const [form, setForm] = useState<FormData>({
     fullName: '',
     email: '',
@@ -56,44 +50,18 @@ export default function Register() {
   }, [selectedAccommodation]);
 
   useEffect(() => {
-    const setupListeners = () => {
-      if (listenersAdded.current || !window.addSuccessListener) return;
-      listenersAdded.current = true;
-      window.addSuccessListener(async (response) => {
-        try {
-          const res = await fetch('/api/kkiapay-verify', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              transactionId: response.transactionId,
-              referenceId: referenceIdRef.current,
-            }),
-          });
-          const data = await res.json();
-          if (data.success) {
-            setSubmitted(true);
-          } else {
-            setPaymentError('Payment could not be verified. Please contact support with your transaction ID: ' + response.transactionId);
-          }
-        } catch {
-          setPaymentError('Verification failed. Please contact support.');
+    fetch('https://open.er-api.com/v6/latest/USD')
+      .then((r) => r.json())
+      .then((data) => {
+        const rate = data?.rates?.XOF;
+        if (rate) {
+          setXofRate(rate);
+          setXofAmount(Math.round(150 * rate));
         }
-        setIsSubmitting(false);
-      });
-      window.addFailedListener(() => {
-        setPaymentError('Payment was not completed. Please try again.');
-        setIsSubmitting(false);
-      });
-    };
-
-    const existing = document.getElementById('kkiapay-sdk');
-    if (existing) { setupListeners(); return; }
-    const script = document.createElement('script');
-    script.id = 'kkiapay-sdk';
-    script.src = 'https://cdn.kkiapay.me/k.js';
-    script.onload = setupListeners;
-    document.body.appendChild(script);
+      })
+      .catch(() => { /* silently fall back to static values */ });
   }, []);
+
 
   const validate = (): boolean => {
     const newErrors: FormErrors = {};
@@ -124,6 +92,25 @@ export default function Register() {
     setIsSubmitting(true);
     setPaymentError('');
 
+    // ── KKiaPay (direct hosted payment page) ──
+    if (paymentMethod === 'kkiapay') {
+      try {
+        const res = await fetch('/api/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...form, paymentMethod: 'kkiapay' }),
+        });
+        const data = await res.json();
+        if (data.referenceId) referenceIdRef.current = data.referenceId;
+      } catch { /* continue even if DB save fails */ }
+
+      // NOTE: When restoring the SDK widget, set amount in XOF (KKiaPay currency).
+      // US$150 ≈ 90,750 XOF (at ~605 XOF/USD). Verify the rate before going live.
+      window.location.href = 'https://direct.kkiapay.me/45674/tutu-fellows-20th-year-reunion-Myp2iwZFZ';
+      return;
+    }
+
+    // ── Bank Transfer ──
     try {
       const res = await fetch('/api/checkout', {
         method: 'POST',
@@ -370,34 +357,115 @@ export default function Register() {
             </div>
           )}
 
-          {/* Payment method selector — commented out pending gateway verification
+          {/* Payment method selector */}
           <div style={{ marginTop: 28, marginBottom: 8 }}>
-            <p style={{ fontSize: 13, fontWeight: 600, color: '#4A0A33', marginBottom: 12 }}>Choose your payment method:</p>
+            <p style={{ fontSize: 13, fontWeight: 600, color: '#4A0A33', marginBottom: 12 }}>
+              Choose your payment method:
+            </p>
             <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-              KKiaPay button (pending verification)
-              Payfast button (pending verification)
+
+              {/* KKiaPay — active */}
+              <button
+                type="button"
+                onClick={() => setPaymentMethod('kkiapay')}
+                style={{
+                  flex: 1,
+                  minWidth: 140,
+                  padding: '12px 16px',
+                  borderRadius: 10,
+                  border: paymentMethod === 'kkiapay' ? '2px solid #9B1D6E' : '1.5px solid #DDD',
+                  background: paymentMethod === 'kkiapay' ? '#F9EEF5' : '#fff',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                }}
+              >
+                <p style={{ fontSize: 13, fontWeight: 700, color: '#9B1D6E', margin: '0 0 2px' }}>KKiaPay</p>
+                <p style={{ fontSize: 11, color: '#5C3A50', margin: 0 }}>Mobile Money &amp; Card</p>
+              </button>
+
+              {/* Bank Transfer — fallback */}
+              <button
+                type="button"
+                onClick={() => setPaymentMethod('paypal')}
+                style={{
+                  flex: 1,
+                  minWidth: 140,
+                  padding: '12px 16px',
+                  borderRadius: 10,
+                  border: paymentMethod === 'paypal' ? '2px solid #5C3A50' : '1.5px solid #DDD',
+                  background: paymentMethod === 'paypal' ? '#F7F4F6' : '#fff',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                }}
+              >
+                <p style={{ fontSize: 13, fontWeight: 700, color: '#5C3A50', margin: '0 0 2px' }}>Bank Transfer</p>
+                <p style={{ fontSize: 11, color: '#5C3A50', margin: 0 }}>EFT / Wire — details on next screen</p>
+              </button>
+
+              {/* Payfast — pending verification */}
+              {/* <button type="button" disabled style={{ ... }}>Payfast</button> */}
+
             </div>
           </div>
-          */}
-          {/* Temporary: direct bank transfer notice */}
-          <div style={{
-            marginTop: 24,
-            padding: '12px 16px',
-            background: '#FFF9EC',
-            border: '1px solid #F6C847',
-            borderRadius: 10,
-            fontSize: 13,
-            color: '#7A5C00',
-          }}>
-            Payment details will be shown after submission.
-          </div>
-          {/* ── hidden spacer to keep layout while selector is commented out ── */}
-          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 4 }}>
-            {
-            /* PayPal button — pending */
-            null
-          }
-          </div>
+
+          {/* KKiaPay amount notice — shown only when KKiaPay is selected */}
+          {paymentMethod === 'kkiapay' && (
+            <div style={{
+              marginTop: 12,
+              padding: '14px 16px',
+              background: '#FFF9EC',
+              border: '1px solid #F6C847',
+              borderRadius: 10,
+              fontSize: 13,
+              color: '#7A5C00',
+              lineHeight: 1.7,
+            }}>
+              <strong>Important — KKiaPay payment amount:</strong><br />
+              When you reach the KKiaPay payment page, enter{' '}
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                <strong style={{ fontSize: 15, color: '#4A3000' }}>
+                  {xofAmount ? xofAmount.toLocaleString() : '84,827'} XOF (FCFA)
+                </strong>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const val = String(xofAmount ?? 84827);
+                    navigator.clipboard.writeText(val).then(() => {
+                      setXofCopied(true);
+                      setTimeout(() => setXofCopied(false), 2000);
+                    });
+                  }}
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 4,
+                    fontSize: 11, fontWeight: 600,
+                    padding: '3px 9px', borderRadius: 6,
+                    border: '1px solid #F6C847',
+                    background: xofCopied ? '#D4EDDA' : '#FFF3CD',
+                    color: xofCopied ? '#155724' : '#7A5C00',
+                    cursor: 'pointer', whiteSpace: 'nowrap',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  {xofCopied ? '✓ Copied!' : '📋 Copy'}
+                </button>
+              </span>{' '}
+              in the amount field. This is the equivalent of <strong>US$150</strong>.<br />
+              <span style={{ fontSize: 11, color: '#9A7A00' }}>
+                {xofRate
+                  ? <>Live rate: 1 USD = {xofRate.toFixed(2)} XOF &mdash; updated just now.</>
+                  : <>Rate approx. 565.51 XOF per USD (as of 3 June 2026).</>}{' '}
+                Verify at{' '}
+                <a
+                  href="https://www.xe.com/currencyconverter/convert/?Amount=150&From=USD&To=XOF"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: '#9B1D6E', fontWeight: 600 }}
+                >
+                  xe.com
+                </a>.
+              </span>
+            </div>
+          )}
 
           <div className="register-footer">
             <div>
@@ -415,7 +483,11 @@ export default function Register() {
               onClick={handleSubmit}
               disabled={isSubmitting}
             >
-              {isSubmitting ? '⏳ Submitting...' : '🔒 Submit Registration'}
+              {isSubmitting
+                ? '⏳ Processing...'
+                : paymentMethod === 'kkiapay'
+                ? '🔒 Pay via KKiaPay'
+                : '🔒 Submit & Get Bank Details'}
             </button>
           </div>
         </div>
