@@ -23,7 +23,7 @@ const folderExtMap: Record<string, string> = {
 
 function getRoomImages(folder: string, count: number) {
   const prefix = folderPrefixMap[folder] ?? folder;
-  const ext = folderExtMap[folder] ?? 'jpg';
+  const ext = folderExtMap[folder] ?? 'jpeg';
   return range(count).map((i) => `/rooms/${folder}/${prefix}-${i}.${ext}`);
 }
 
@@ -230,6 +230,24 @@ export default function Accommodation() {
   const [activeCard, setActiveCard] = useState(0);
   const [hasScrolled, setHasScrolled] = useState(false);
   const gridRef = useRef<HTMLDivElement>(null);
+  const [estatesImages, setEstatesImages] = useState<string[]>([
+    '/rooms/victoria-falls-estates/Vic Falls Estate _A748577-HDR.jpeg',
+    '/rooms/victoria-falls-estates/Vic Falls Estate _A748788.jpeg',
+    '/rooms/victoria-falls-estates/Vic Falls Estate _A748791.jpeg',
+    '/rooms/victoria-falls-estates/Vic Falls Estate _A748886-HDR.jpeg',
+    '/rooms/victoria-falls-estates/Vic Falls Estate _A749834-HDR.jpeg',
+    '/rooms/victoria-falls-estates/Vic Falls Estate _A749864-HDR.jpeg',
+    '/rooms/victoria-falls-estates/Vic Falls Estate _A749907.jpeg',
+    '/rooms/victoria-falls-estates/Vic Falls Estate _A749908.jpeg',
+    '/rooms/victoria-falls-estates/Vic Falls Estate _A749924.jpeg',
+  ]);
+
+  useEffect(() => {
+    fetch('/api/room-images?folder=victoria-falls-estates')
+      .then((r) => r.json())
+      .then((data) => { if (data.images?.length) setEstatesImages(data.images); })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const grid = gridRef.current;
@@ -255,7 +273,7 @@ export default function Accommodation() {
     {
       name: 'Victoria Falls Estates',
       type: 'Self-Catering Apartments',
-      images: getRoomImages('victoria-falls-estates', 29),
+      images: estatesImages,
       desc: 'Spacious self-catering apartments with 2-bed and 3-bed configurations, ideal for Fellows who prefer to share. Flexible and independent.',
       price: 'US$100',
       priceSuffix: '/person/night',
@@ -269,7 +287,7 @@ export default function Accommodation() {
     {
       name: 'Zambezi Boutique Lodge',
       type: 'Boutique Guest Lodge',
-      images: getRoomImages('zambezi-boutique', 7),
+      images: getRoomImages('zambezi-boutique', 5),
       desc: 'Intimate and social, with breakfast and teas included. Ideal for fellows who prefer to be located at the informal gathering point for the programme.',
       price: 'US$100',
       priceSuffix: '/person/night',
@@ -283,7 +301,7 @@ export default function Accommodation() {
     {
       name: 'Vic Falls Safari Lodge',
       type: 'Main Conference Venue',
-      images: getRoomImages('victoria-falls-safari', 22),
+      images: getRoomImages('victoria-falls-safari', 8),
       desc: 'The primary conference venue for all retreat sessions. Staying here puts you at the heart of the programme, with no transfers needed between accommodation and sessions.',
       price: 'from US$215',
       priceSuffix: '/room/night',
