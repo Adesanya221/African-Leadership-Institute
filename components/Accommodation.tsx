@@ -230,6 +230,23 @@ export default function Accommodation() {
   const [activeCard, setActiveCard] = useState(0);
   const [hasScrolled, setHasScrolled] = useState(false);
   const gridRef = useRef<HTMLDivElement>(null);
+  const [safariImages, setSafariImages] = useState<string[]>([
+    '/rooms/victoria-falls-safari/safari-4.png',
+    '/rooms/victoria-falls-safari/safari-5.png',
+    '/rooms/victoria-falls-safari/safari-6.png',
+    '/rooms/victoria-falls-safari/safari-8.png',
+    '/rooms/victoria-falls-safari/safari-12.png',
+    '/rooms/victoria-falls-safari/safari-13.png',
+    '/rooms/victoria-falls-safari/safari-14.png',
+    '/rooms/victoria-falls-safari/safari-17.png',
+  ]);
+  const [zambeziImages, setZambeziImages] = useState<string[]>([
+    '/rooms/zambezi-boutique/zambezi-1.jpg',
+    '/rooms/zambezi-boutique/zambezi-2.jpg',
+    '/rooms/zambezi-boutique/zambezi-5.jpg',
+    '/rooms/zambezi-boutique/zambezi-6.jpg',
+    '/rooms/zambezi-boutique/zambezi-7.jpg',
+  ]);
   const [estatesImages, setEstatesImages] = useState<string[]>([
     '/rooms/victoria-falls-estates/Vic Falls Estate _A748577-HDR.jpeg',
     '/rooms/victoria-falls-estates/Vic Falls Estate _A748788.jpeg',
@@ -243,10 +260,15 @@ export default function Accommodation() {
   ]);
 
   useEffect(() => {
-    fetch('/api/room-images?folder=victoria-falls-estates')
-      .then((r) => r.json())
-      .then((data) => { if (data.images?.length) setEstatesImages(data.images); })
-      .catch(() => {});
+    const load = (folder: string, setter: (imgs: string[]) => void) => {
+      fetch(`/api/room-images?folder=${folder}`)
+        .then((r) => r.json())
+        .then((data) => { if (data.images?.length) setter(data.images); })
+        .catch(() => {});
+    };
+    load('victoria-falls-estates', setEstatesImages);
+    load('victoria-falls-safari', setSafariImages);
+    load('zambezi-boutique', setZambeziImages);
   }, []);
 
   useEffect(() => {
@@ -287,7 +309,7 @@ export default function Accommodation() {
     {
       name: 'Zambezi Boutique Lodge',
       type: 'Boutique Guest Lodge',
-      images: getRoomImages('zambezi-boutique', 5),
+      images: zambeziImages,
       desc: 'Intimate and social, with breakfast and teas included. Ideal for fellows who prefer to be located at the informal gathering point for the programme.',
       price: 'US$100',
       priceSuffix: '/person/night',
@@ -301,7 +323,7 @@ export default function Accommodation() {
     {
       name: 'Vic Falls Safari Lodge',
       type: 'Main Conference Venue',
-      images: getRoomImages('victoria-falls-safari', 8),
+      images: safariImages,
       desc: 'The primary conference venue for all retreat sessions. Staying here puts you at the heart of the programme, with no transfers needed between accommodation and sessions.',
       price: 'from US$215',
       priceSuffix: '/room/night',
