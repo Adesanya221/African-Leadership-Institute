@@ -2,21 +2,29 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSupabase } from '@/lib/supabase';
 import crypto from 'crypto';
 
+// Payfast requires fields in this exact order for signature generation.
+// Source: https://developers.payfast.co.za/docs (official omnipay-payfast library)
+const PAYFAST_FIELD_ORDER = [
+  'merchant_id', 'merchant_key', 'return_url', 'cancel_url', 'notify_url',
+  'name_first', 'name_last', 'email_address', 'cell_number',
+  'm_payment_id', 'amount', 'item_name', 'item_description',
+  'custom_int1', 'custom_int2', 'custom_int3', 'custom_int4', 'custom_int5',
+  'custom_str1', 'custom_str2', 'custom_str3', 'custom_str4', 'custom_str5',
+  'email_confirmation', 'confirmation_address', 'payment_method',
+  'subscription_type', 'billing_date', 'recurring_amount', 'frequency', 'cycles',
+];
+
 function generateSignature(data: Record<string, string>, passphrase: string): string {
-  const pfData = { ...data, passphrase };
-
-  // Remove empty / undefined values
-  const filtered = Object.fromEntries(
-    Object.entries(pfData).filter(([, v]) => v !== '' && v !== undefined && v !== null)
-  );
-
-  // Sort alphabetically and build query string (PHP urlencode style)
-  const queryString = Object.keys(filtered)
-    .sort()
-    .map(key => `${key}=${encodeURIComponent(filtered[key]).replace(/%20/g, '+')}`)
+  // Build query string using Payfast's required field order (skip empty fields)
+  const queryString = PAYFAST_FIELD_ORDER
+    .filter(key => data[key] !== undefined && data[key] !== '' && data[key] !== null)
+    .map(key => `${key}=${encodeURIComponent(data[key]).replace(/%20/g, '+')}`)
     .join('&');
 
-  return crypto.createHash('md5').update(queryString).digest('hex');
+  // Passphrase is always appended at the END, never sorted into the middle
+  const stringToHash = `${queryString}&passphrase=${encodeURIComponent(passphrase).replace(/%20/g, '+')}`;
+
+  return crypto.createHash('md5').update(stringToHash).digest('hex');
 }
 
 export async function POST(req: NextRequest) {
@@ -82,10 +90,8 @@ export async function POST(req: NextRequest) {
       item_description: itemDescription,
     };
 
-    // Signature is generated over all params (excluding merchant_key) + passphrase
-    const { merchant_key: _mk, ...sigData } = pfData;
-    void _mk;
-    const signature = generateSignature(sigData, passphrase);
+    // Signature covers all fields (including merchant_key), passphrase appended last
+    const signature = generateSignature(pfData, passphrase);
     pfData.signature = signature;
 
     const payfastUrl = isSandbox

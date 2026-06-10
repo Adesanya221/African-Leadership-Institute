@@ -110,6 +110,24 @@ export default function Register() {
       return;
     }
 
+    // ── Payfast (direct hosted payment link) ──
+    // NOTE: Full API integration with signed form POST + ITN webhook is still
+    // available at /api/payfast-checkout and /api/payfast-itn if needed later.
+    if (paymentMethod === 'payfast') {
+      try {
+        const res = await fetch('/api/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...form, paymentMethod: 'payfast' }),
+        });
+        const data = await res.json();
+        if (data.referenceId) referenceIdRef.current = data.referenceId;
+      } catch { /* continue even if DB save fails */ }
+
+      window.location.href = 'https://payment.payfast.io/eng/process/payment/5fddcecb-f28f-4683-93dd-e690736200c9';
+      return;
+    }
+
     // ── Bank Transfer ──
     try {
       const res = await fetch('/api/checkout', {
@@ -402,8 +420,24 @@ export default function Register() {
                 <p style={{ fontSize: 11, color: '#5C3A50', margin: 0 }}>EFT / Wire — details on next screen</p>
               </button>
 
-              {/* Payfast — pending verification */}
-              {/* <button type="button" disabled style={{ ... }}>Payfast</button> */}
+              {/* Payfast — card payments (ZAR) */}
+              <button
+                type="button"
+                onClick={() => setPaymentMethod('payfast')}
+                style={{
+                  flex: 1,
+                  minWidth: 140,
+                  padding: '12px 16px',
+                  borderRadius: 10,
+                  border: paymentMethod === 'payfast' ? '2px solid #9B1D6E' : '1.5px solid #DDD',
+                  background: paymentMethod === 'payfast' ? '#F9EEF5' : '#fff',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                }}
+              >
+                <p style={{ fontSize: 13, fontWeight: 700, color: '#9B1D6E', margin: '0 0 2px' }}>Payfast</p>
+                <p style={{ fontSize: 11, color: '#5C3A50', margin: 0 }}>Card &amp; EFT (ZAR)</p>
+              </button>
 
             </div>
           </div>
@@ -487,6 +521,8 @@ export default function Register() {
                 ? '⏳ Processing...'
                 : paymentMethod === 'kkiapay'
                 ? '🔒 Pay via KKiaPay'
+                : paymentMethod === 'payfast'
+                ? '🔒 Pay via Payfast'
                 : '🔒 Submit & Get Bank Details'}
             </button>
           </div>

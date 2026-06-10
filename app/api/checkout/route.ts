@@ -35,8 +35,8 @@ export async function POST(req: NextRequest) {
       // Don't block payment if DB save fails — log it and continue
     }
 
-    // ── KKiaPay / Bank transfer: payment handled separately, just return referenceId ──
-    if (paymentMethod === 'kkiapay' || paymentMethod === 'bank') {
+    // ── KKiaPay / Payfast / Bank transfer: payment handled separately, just return referenceId ──
+    if (paymentMethod === 'kkiapay' || paymentMethod === 'payfast' || paymentMethod === 'bank') {
       return NextResponse.json({ referenceId });
     }
 

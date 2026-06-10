@@ -2,19 +2,17 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseServer } from '@/lib/supabase-server';
 import crypto from 'crypto';
 
-function generateSignature(data: Record<string, string>, passphrase: string): string {
-  const pfData = { ...data, passphrase };
-
-  const filtered = Object.fromEntries(
-    Object.entries(pfData).filter(([, v]) => v !== '' && v !== undefined && v !== null)
-  );
-
-  const queryString = Object.keys(filtered)
-    .sort()
-    .map(key => `${key}=${encodeURIComponent(filtered[key]).replace(/%20/g, '+')}`)
+function verifyITNSignature(params: Record<string, string>, passphrase: string): string {
+  // For ITN, use fields in the order Payfast posted them (NOT alphabetical sort).
+  // Passphrase is always appended at the END.
+  const queryString = Object.entries(params)
+    .filter(([key, val]) => key !== 'signature' && val !== '' && val !== undefined && val !== null)
+    .map(([key, val]) => `${key}=${encodeURIComponent(val).replace(/%20/g, '+')}`)
     .join('&');
 
-  return crypto.createHash('md5').update(queryString).digest('hex');
+  const stringToHash = `${queryString}&passphrase=${encodeURIComponent(passphrase).replace(/%20/g, '+')}`;
+
+  return crypto.createHash('md5').update(stringToHash).digest('hex');
 }
 
 export async function POST(req: NextRequest) {
@@ -31,15 +29,38 @@ export async function POST(req: NextRequest) {
     }
 
     // 1. Verify signature
-    const { signature: receivedSig, ...dataWithoutSig } = params;
-    const expectedSig = generateSignature(dataWithoutSig, passphrase);
+    const { signature: receivedSig } = params;
+    const expectedSig = verifyITNSignature(params, passphrase);
 
     if (receivedSig !== expectedSig) {
       console.error('Payfast ITN: signature mismatch', { receivedSig, expectedSig });
       return NextResponse.json({ error: 'Invalid signature' }, { status: 400 });
     }
 
-    // 2. Verify payment status
+    // 2. Confirm validity with Payfast's server (Security check 4 in Payfast docs).
+    // Post the exact received data back to Payfast — they reply VALID or INVALID.
+    const isSandbox = process.env.NODE_ENV !== 'production';
+    const validateUrl = isSandbox
+      ? 'https://sandbox.payfast.co.za/eng/query/validate'
+      : 'https://www.payfast.co.za/eng/query/validate';
+
+    try {
+      const validateRes = await fetch(validateUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body,
+      });
+      const validateText = await validateRes.text();
+      if (validateText.trim() !== 'VALID') {
+        console.error('Payfast ITN: server validation failed', validateText);
+        return NextResponse.json({ error: 'Payfast validation failed' }, { status: 400 });
+      }
+    } catch (validateErr) {
+      console.error('Payfast ITN: could not reach validation server', validateErr);
+      return NextResponse.json({ error: 'Validation server unreachable' }, { status: 500 });
+    }
+
+    // 3. Verify payment status
     if (params.payment_status !== 'COMPLETE') {
       console.warn('Payfast ITN: payment not complete', params.payment_status);
       return NextResponse.json({ ok: true });
