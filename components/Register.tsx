@@ -124,7 +124,7 @@ export default function Register() {
         if (data.referenceId) referenceIdRef.current = data.referenceId;
       } catch { /* continue even if DB save fails */ }
 
-      window.location.href = 'https://payment.payfast.io/eng/process/payment/5fddcecb-f28f-4683-93dd-e690736200c9';
+      window.location.href = 'https://payf.st/jwlxq';
       return;
     }
 
