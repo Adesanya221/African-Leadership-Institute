@@ -63,8 +63,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/Afli%2020th%20Anniversary%20Logo.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/Afli%2020th%20Anniversary%20Logo.png" />
+        <link rel="icon" href="/AFLI%2020TH%20Background%20removed.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/AFLI%2020TH%20Background%20removed.png" />
         <meta name="theme-color" content="#9B1D6E" />
       </head>
       <body>{children}</body>

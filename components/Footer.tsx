@@ -18,9 +18,9 @@ export default function Footer() {
           }}
         />
         <img
-          src="/Afli 20th Anniversary Logo.png"
+          src="/AFLI 20TH Background removed.png?v=2"
           alt="Tutu Fellows 20th Year Reunion"
-          style={{ height: 50, width: 'auto' }}
+          style={{ height: 110, width: 'auto' }}
         />
       </div>
           <p
